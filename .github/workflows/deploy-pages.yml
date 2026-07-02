@@ -1,9 +1,9 @@
 name: Deploy GitHub Pages
 
 on:
-  push:
-    branches:
-      - gh-pages
+  repository_dispatch:
+    types:
+      - dashboard_published
   workflow_dispatch:
 
 permissions:
