@@ -1,0 +1,364 @@
+[
+  {
+    "id": "firearms-v1-production-validation",
+    "title": "Firearms v1 published multi-server validation",
+    "status": "NeedsReview",
+    "priority": "P0",
+    "systems": [
+      "Firearms",
+      "InventoryEconomy",
+      "CharacterProfile",
+      "CoreNetwork",
+      "Movement",
+      "ODMGear",
+      "FistsCombat"
+    ],
+    "summary": "Implemented the Development Musket with persistent ownership/loaded state, complete state preservation across On Person/backpack moves, cartridge-gated atomic reload completion, server-confirmed hitscan, and secured drop/pickup behavior.",
+    "next": "Retest an accessorized real-player headshot and drop/pickup in the published two-client matrix; validate zero-ammo and interrupted reloads, cartridge removal during reload, cross-place ownership, and two-server Musket/Ammo Case contention.",
+    "docs": [
+      "project-docs/FeatureContracts/FirearmsContract.md",
+      "project-docs/FeatureContracts/InventoryEconomyContract.md",
+      "project-docs/FeatureContracts/CoreNetworkContract.md"
+    ]
+  },
+  {
+    "id": "talent-system-v1-published-validation",
+    "title": "TalentSystem v1 multi-player and persistence validation",
+    "status": "NeedsReview",
+    "priority": "P0",
+    "systems": [
+      "TalentSystem",
+      "CharacterProfile",
+      "CoreNetwork",
+      "PermadeathEvents",
+      "ODMGear",
+      "FistsCombat",
+      "MindlessTitanSystem"
+    ],
+    "summary": "Implemented hidden character-bound XP, opaque reconnect-safe three-card hands, three pullable active talents, three functional pullable passives, admin-awaken-only Rage, nine saved slots, passive toggles, equipped-only activation, and authored white-on-black presentation.",
+    "next": "Validate Blue/Red timing and inactivity, real Titan rewards, two-real-player attribution, concurrent card selection, reconnect/server persistence, passive toggles/effects, all nine drag/drop positions, cooldowns, character switching, and disposable-character wipe cleanup.",
+    "docs": [
+      "project-docs/FeatureContracts/TalentSystemContract.md",
+      "project-docs/FeatureContracts/CoreNetworkContract.md",
+      "project-docs/FeatureContracts/CharacterProfileContract.md",
+      "project-docs/FeatureContracts/ODMGearContract.md",
+      "project-docs/FeatureContracts/TitanSystemContract.md"
+    ]
+  },
+  {
+    "id": "admin-character-tools-persistent-customization",
+    "title": "Admin Character Tools persistent customization validation",
+    "status": "NeedsReview",
+    "priority": "P0",
+    "systems": [
+      "AdminTab",
+      "AdminCommand",
+      "AdminPermissions",
+      "CoreNetwork",
+      "CharacterAppearance",
+      "CharacterProfile",
+      "CharacterCreation"
+    ],
+    "summary": "Implemented server-authoritative persistent Character Tools for the admin's active Alive slot with CharacterCreation-filtered face/hair selections, six direct-RGB sliders, classic Shirt/Pants catalog IDs, and up to five validated managed rigid accessories.",
+    "next": "Publish linked packages, then use a disposable active character to validate valid clothing/accessory saves, removal/reordering, RGB endpoints, respawn/rejoin restoration, stale-slot rejection, unauthorized and malformed requests, unavailable assets, and the five-item cap. Restore or remove all disposable appearance data afterward.",
+    "docs": [
+      "project-docs/FeatureContracts/AdminCommandContract.md",
+      "project-docs/FeatureContracts/CharacterAppearanceContract.md",
+      "project-docs/FeatureContracts/CharacterProfileContract.md",
+      "project-docs/FeatureContracts/CoreNetworkContract.md"
+    ]
+  },
+  {
+    "id": "admin-slot-management-published-validation",
+    "title": "Admin slot management published validation",
+    "status": "NeedsReview",
+    "priority": "P0",
+    "systems": [
+      "AdminTab",
+      "AdminCommand",
+      "AdminPermissions",
+      "CoreNetwork",
+      "CharacterProfile",
+      "CharacterCreation",
+      "MainMenu",
+      "MainMenuClientBridge",
+      "PlaceRouting"
+    ],
+    "summary": "Implemented a server-authoritative staff Character Slot Management panel with a dynamic 25-slot entitlement, deterministic sanitized roster, fresh CharacterCreation routing, same-server position-preserving Load with rollback, and an authored confirmation before recoverable Delete of a non-active Alive slot.",
+    "next": "Publish linked packages, then use disposable Development profiles to validate cross-place New Slot, two-slot same-server Load and rollback, confirmed Delete/archive persistence, PD and wipe-lock exceptions, rapid-request locking, and the 25th/26th slot boundary. Remove every disposable character afterward.",
+    "docs": [
+      "project-docs/FeatureContracts/AdminCommandContract.md",
+      "project-docs/FeatureContracts/CharacterProfileContract.md",
+      "project-docs/FeatureContracts/CharacterCreationContract.md",
+      "project-docs/FeatureContracts/MainMenuFlowContract.md",
+      "project-docs/FeatureContracts/MainMenuClientBridgeContract.md",
+      "project-docs/FeatureContracts/CoreNetworkContract.md"
+    ]
+  },
+  {
+    "id": "admin-music-published-validation",
+    "title": "Admin Music published two-client validation",
+    "status": "NeedsReview",
+    "priority": "P1",
+    "systems": [
+      "AdminMusic",
+      "AdminCommand",
+      "AdminPermissions",
+      "CoreNetwork",
+      "GameConfig"
+    ],
+    "summary": "Implemented the configuration-driven Admin Music panel with 146 rows backed by 145 Development-validated unique audio assets, reliable authored local name/author/id search and enlarged slider hit areas, dynamic rows, server-only validation, permission-gated play/stop/shared-volume/seek intents, server-wide configured track-switch audio that finishes before cancellable replacement playback, and revisioned playback correction state.",
+    "next": "Publish the validated _GameConfigPackage change, then validate play, replacement cue, stop, volume, seek correction, state display, and late join synchronization with two clients.",
+    "docs": [
+      "project-docs/FeatureContracts/AdminMusicContract.md",
+      "project-docs/FeatureContracts/AdminCommandContract.md"
+    ]
+  },
+  {
+    "id": "branch-system-v1-publish-validation",
+    "title": "BranchSystem v1 publish and global synchronization validation",
+    "status": "NeedsReview",
+    "priority": "P0",
+    "systems": [
+      "BranchSystem",
+      "CorePersistence",
+      "CoreNetwork",
+      "CharacterProfile",
+      "CharacterLifecycle",
+      "AdminPermissions",
+      "GameConfig"
+    ],
+    "summary": "Implemented the server-authoritative BranchSystem v1 in DevelopmentPlace, including fixed config branches, global canonical roster documents, account invitations, character-level multi-membership projection, metarole hierarchy, editable roles, single-leader transfer/vacancy, offline and cross-server reconciliation, permission-gated branch admin commands, WipedPending global roster hiding with Alive restoration, concurrent single-flight 16-bucket reads, newest-branch cache prewarming, 25-row pagination, exact rank filtering, server search, lifecycle cleanup, admin datawipe cleanup, and the membership-gated selector/identity-card roster UI.",
+    "next": "Publish PackageLink changes to every place and run the documented two-account/two-server admin-command, WipedPending hide/Alive restore, offline rejoin, restart persistence, missed-message TTL, lifecycle, and desktop validation matrix.",
+    "docs": [
+      "project-docs/FeatureContracts/BranchSystemContract.md",
+      "project-docs/GameOverview.md"
+    ]
+  },
+  {
+    "id": "custom-chat-bubble-system",
+    "title": "Custom bubble chat system validation",
+    "status": "NeedsReview",
+    "priority": "P0",
+    "systems": [
+      "CustomChat",
+      "AdminPermissions",
+      "CoreNetwork",
+      "CorePersistence"
+    ],
+    "summary": "CustomChat is implemented with the owner-copied Roblox-style input UI cloned from _GameAssetsPackage, nested chatInputBar/TextBox support, / and . focus keys, click focus, hover/focus transparency tweening including SendButton chrome, AutomaticSize TextBox growth, server filtering, Roblox text filtering, bubble-only display, an authored fixed-size /me action billboard, simplified server config, and persistent custom-filter bypass admin command (bypasses Roblox filtering).",
+    "next": "Validate configured filteredWords censoring, SendButton submit behavior, and unfilteredchat on/off persistence during normal play.",
+    "docs": [
+      "project-docs/FeatureContracts/CustomChatContract.md"
+    ]
+  },
+    {
+        "id": "server-selection-live-directory-rework",
+        "title": "Server selection live directory publish validation",
+        "status": "NeedsReview",
+        "priority": "P0",
+        "systems": [
+            "ServerDirectory",
+            "ServerJoining",
+            "PlaceSelection",
+            "PlaceRouting",
+            "PermadeathEvents",
+            "MainMenuClientBridge"
+        ],
+        "summary": "Implemented gameplay-server-published v2 live directory snapshots for Development servers, including stable keys, heartbeat TTL/stale policy, PD state/color, reserved publicPlayers, and canonical Quick Join row preference. Live validation is still required.",
+        "next": "Run published two-account validation: row persists for 2+ minutes, PD red/blue/off updates icon visibility/color, Quick Join joins the existing live server, and row remains while any player stays in the server.",
+        "docs": [
+            "project-docs/KnownIssues.md",
+            "project-docs/FeatureContracts/ServerSelectionContract.md"
+        ]
+    },
+    {
+        "id": "character-creation-appearance-rework",
+        "title": "Character creation appearance rework",
+        "status": "Done",
+        "priority": "P0",
+        "systems": [
+            "CharacterCreation",
+            "CharacterAppearance",
+            "MainMenuClientBridge",
+            "CharacterProfile"
+        ],
+        "summary": "Core creation flow, validation, preview stability, movement lock, fixed-head height, gender draft cache, and admin-forced preview context are complete and Studio-validated. Character name billboard and PD identity HUD are implemented. Dual hair extension is tracked separately.",
+        "next": "Monitor for tester regressions. Dual hair slot extension (primaryHairStyle + secondaryHairStyle) is the next character appearance work item.",
+        "docs": [
+            "project-docs/KnownIssues.md",
+            "project-docs/FeatureContracts/CharacterCreationContract.md",
+            "project-docs/FeatureContracts/CharacterAppearanceContract.md"
+        ]
+    },
+    {
+        "id": "stabilize-creation-admin-wipe",
+        "title": "Stabilize creation, admin wipe, and void routing",
+        "status": "Done",
+        "priority": "P0",
+        "systems": [
+            "CharacterCreation",
+            "AdminPermissions",
+            "VoidWipe",
+            "CorePersistence",
+            "PlaceRouting"
+        ],
+        "summary": "CharacterCreation preview currently passes owner Studio validation, and wipe/datawipe/void commands are working based on current tests. Cross-place charcreate validation remains deferred until publishing is available.",
+        "next": "Monitor CharacterCreation tester edge cases and return to cross-place charcreate validation after publishing is available.",
+        "docs": [
+            "project-docs/KnownIssues.md"
+        ]
+    },
+    {
+        "id": "dual-hair-independent-slots",
+        "title": "Dual independent hair slots",
+        "status": "InProgress",
+        "priority": "P0",
+        "systems": [
+            "CharacterCreation",
+            "CharacterAppearance",
+            "CharacterProfile",
+            "MainMenuClientBridge"
+        ],
+        "summary": "Owner decision: dual hair means primaryHairStyle plus optional secondaryHairStyle. Both slots share the existing hairColor and hairDarkness values; secondaryHairStyle defaults to empty.",
+        "next": "Implement primaryHairStyle and optional secondaryHairStyle semantics, default secondaryHairStyle to empty, keep hairColor/hairDarkness shared, and migrate legacy hairStyle payloads safely.",
+        "docs": [
+            "project-docs/FeatureContracts/CharacterCreationContract.md",
+            "project-docs/FeatureContracts/CharacterAppearanceContract.md",
+            "project-docs/KnownIssues.md"
+        ]
+    },
+    {
+        "id": "titan-system-production-rebuild",
+        "title": "Mindless TitanSystem production rebuild",
+        "status": "NeedsReview",
+        "priority": "P1",
+        "systems": [
+            "MindlessTitanSystem",
+            "ODMGear",
+            "Combat",
+            "CoreRuntime",
+            "CoreNetwork",
+            "AdminCommand",
+            "GameplayFoundation",
+            "PermadeathEvents"
+        ],
+    "summary": "Mindless Titan v3.18.6 PureTitanPredator is active in Development. Grounded pursuit derives its band from both authored GroundFront palm paths: 0.498618H central reach, 0.468701H preferred spacing and 0.337465H too-close threshold. The Titan attacks from the valid band and faces the target while backing out of crowding. Responsive 320-degree turning, front live-target tracking, rear axes and client contact truth remain intact. Standalone Bite remains next.",
+    "next": "Owner-rerun stationary grounded and foot-crowding feel: confirm authored-range stop plus immediate attacks, target-facing Backstep from below 0.337H, successful GroundFront after reopening the angle, responsive orbit turning, real-contact holds and clean console; then run the 5/10/30 m expert-ODM, two-client 0-250 ms, 2/4/8 swarm/navigation and 25->50->75->96 soak gates.",
+        "docs": [
+            "project-docs/TitanSystemPlan.md",
+            "project-docs/TitanAnimationAssetRequirements.md",
+            "project-docs/FeatureContracts/TitanSystemContract.md",
+            "project-docs/FeatureContracts/ODMGearContract.md",
+            "project-docs/AuthorityPolicy.md"
+        ]
+    },
+    {
+        "id": "inventory-economy-phase-1-live-validation",
+        "title": "Inventory Economy Phase 1 published validation",
+        "status": "NeedsReview",
+        "priority": "P0",
+        "systems": [
+            "InventoryEconomy",
+            "CharacterProfile",
+            "CorePersistence",
+            "CoreNetwork",
+            "ODMGear",
+            "AdminPermissions",
+            "GameConfig"
+        ],
+        "summary": "Implemented schema-6 spatial inventory, generic stack merge/split, persistent Musket cartridges, exact loaded-bag transfer, state-preserving Musket moves, atomic cartridge reload completion, AmmoCase and BackpackCase logistics, and the authored tactical Tab UI.",
+        "next": "Publish PackageLink changes to every place; validate cartridges in every owned container, zero/interrupted reloads, loaded-bag two-player transfer, AmmoCase/BackpackCase refund/recreation/tombstones, and cross-place/two-server persistence/contention.",
+        "docs": [
+            "project-docs/FeatureContracts/InventoryEconomyContract.md",
+            "project-docs/FeatureContracts/ODMGearContract.md",
+            "project-docs/PersistencePolicy.md",
+            "project-docs/GameOverview.md"
+        ]
+    },
+    {
+        "id": "gameplay-foundation-odmg-prototype",
+        "title": "Gameplay foundation and ODMG prototype integration",
+        "status": "InProgress",
+        "priority": "P0",
+        "systems": [
+            "GameplayFoundation",
+            "Movement",
+            "ODMGear",
+            "Combat",
+            "InventoryEconomy",
+            "AntiCheatModeration"
+        ],
+        "summary": "GameplayFoundation supports independent Movement and optional ODMGear. ODMGear now includes transferable five-tier upgrades, speed-scaled movement, four reserve blade sets, progressive wear, and server-confirmed target contact/clash outcomes.",
+        "next": "Run published two-client transfer, observer blade visuals, clash, hook/slash, and InventoryEconomy handoff/contention validation.",
+        "docs": [
+            "project-docs/FeatureContracts/GameplayFoundationContract.md",
+            "project-docs/FeatureContracts/MovementContract.md",
+            "project-docs/FeatureContracts/InventoryEconomyContract.md",
+            "project-docs/FeatureContracts/ODMGearContract.md",
+            "project-docs/GameOverview.md",
+            "project-docs/ODMGearImportAudit.md"
+        ]
+    },
+    {
+        "id": "publish-live-validation",
+        "title": "Publish and live multi-client validation",
+        "status": "Planned",
+        "priority": "P0",
+        "systems": [
+            "ServerDirectory",
+            "ServerJoining",
+            "PlaceSelection",
+            "PlaceRouting",
+            "PermadeathEvents",
+            "MainMenuClientBridge",
+            "AdminCommand",
+            "InventoryEconomy"
+        ],
+        "summary": "Multiple systems require published multi-client runtime to confirm MemoryStore behavior, routing, PD propagation, and InventoryEconomy cross-place/profile-session plus shared station behavior.",
+        "next": "Re-enable publishing and run two-account/two-server validation for server selection, PD, cross-place charcreate, persistent character gas/items, station contention, and stale-server refresh on next interaction.",
+        "docs": [
+            "project-docs/KnownIssues.md",
+            "project-docs/FeatureContracts/ServerSelectionContract.md",
+            "project-docs/FeatureContracts/PlaceRoutingContract.md",
+            "project-docs/FeatureContracts/PDEventContract.md",
+            "project-docs/FeatureContracts/InventoryEconomyContract.md"
+        ]
+    },
+    {
+        "id": "customchat-production-migration",
+        "title": "CustomChat production migration",
+        "status": "Planned",
+        "priority": "P1",
+        "systems": [
+            "CustomChat",
+            "CoreNetwork",
+            "CorePersistence"
+        ],
+        "summary": "CustomChat migrated backend still uses package-contained direct RemoteEvents instead of NetworkRegistry and DataStoreService directly instead of CorePersistence for legacy permission/ban records. Both must be fixed before production approval.",
+        "next": "Migrate chat remotes to NetworkRegistry routes and legacy DataManager permission/ban records to CorePersistence, then run published multi-client chat, filterbypass, and webhook validation.",
+        "docs": [
+            "project-docs/FeatureContracts/CustomChatContract.md",
+            "project-docs/NetworkPolicy.md",
+            "project-docs/PersistencePolicy.md"
+        ]
+    },
+    {
+        "id": "permadeath-events-validation",
+        "title": "Permadeath Events multi-client validation",
+        "status": "Done",
+        "priority": "P1",
+        "systems": [
+            "PermadeathEvents",
+            "WipePlace",
+            "ServerDirectory",
+            "AdminCommand"
+        ],
+        "summary": "PD server-local Red/Blue control, safe-leave backend, WipedPending outcomes, active-PD HUD (identity, health bar, low-health blur), and WipePlace functional flow are implemented and Studio-validated. PD icon propagation to MainMenu server list and live pd red/blue/off server-row color updates need published two-client validation.",
+        "next": "Run pd red, pd blue, pd off in a published two-account session. Confirm the MainMenu server row shows the correct PD icon and color. Confirm pd off restores the row to no-PD state.",
+        "docs": [
+            "project-docs/FeatureContracts/PDEventContract.md",
+            "project-docs/KnownIssues.md"
+        ]
+    }
+]

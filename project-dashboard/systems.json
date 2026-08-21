@@ -1,0 +1,1269 @@
+[
+  {
+    "id": "Firearms",
+    "title": "Firearms",
+    "status": "InProgress",
+    "category": "Gameplay",
+    "priority": "High",
+    "summary": "Contract v0.4.0 preserves authoritative Musket loaded state across container moves and requires one persistent cartridge for atomic reload completion.",
+    "dependsOn": [
+      "CoreRuntime",
+      "CoreNetwork",
+      "CharacterProfile",
+      "InventoryEconomy",
+      "Movement",
+      "ODMGear",
+      "FistsCombat",
+      "GameConfig",
+      "GameplayFoundation",
+      "CharacterLook"
+    ],
+    "ownedPaths": [
+      "ReplicatedStorage.GameSharedPackage.Features.Firearms",
+      "ServerScriptService.GameServerPackage.Features.Firearms",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Features.Firearms",
+      "ReplicatedStorage._GameplayAssetsPackage.Models.Firearms",
+      "ReplicatedStorage._GameplayAssetsPackage.Animations.Firearms"
+    ],
+    "docs": [
+      "project-docs/FeatureContracts/FirearmsContract.md"
+    ],
+    "risks": [
+      "Published two-real-client validation must still confirm that uploaded Handle channels replicate to observers through the server-created Animator.",
+      "The six owned animations and late-created Handle channel are single-client validated; published two-real-client observer replication remains required.",
+      "The uploaded Reload markers are presentation-optional; missing markers fail softly while authoritative reload completion remains timing-owned.",
+      "Published two-real-client rewind, cross-place ownership, and two-server Musket/Ammo Case contention remain production gates.",
+      "Published interruption timing must confirm that death, unequip, movement, or cartridge removal during reload consumes nothing."
+    ],
+    "next": "Run the published two-client latency/observer matrix, cartridge reload interruption/removal cases, cross-place ownership handoff, and two-server Musket/Ammo Case contention tests before production enablement."
+  },
+  {
+    "id": "CoreRuntime",
+    "title": "Core Runtime",
+    "status": "Done",
+    "category": "Core",
+    "priority": "Medium",
+    "summary": "Fail-closed runtime bootstrap, feature registration, place feature policy, and Workspace.Runtime container conventions are established.",
+    "dependsOn": [
+      "GameConfig"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/ProjectContextDigest.md",
+      "project-docs/ArchitecturePolicy.md"
+    ],
+    "risks": [
+      "Scheduler exists as an empty core stub and should not be treated as implemented scheduling infrastructure."
+    ],
+    "next": "Keep feature startup fail-closed and avoid adding runtime-owned behavior outside package boundaries."
+  },
+  {
+    "id": "GameConfig",
+    "title": "Game Config",
+    "status": "Done",
+    "category": "Core",
+    "priority": "Medium",
+    "summary": "Server-owned config drives place directory, feature gates, admin access, secrets, the Development-validated 146-entry AdminMusic catalog/defaults/track-switch cue, and environment-specific ProfileStore/document collections, including InventoryStations.",
+    "dependsOn": [],
+    "ownedPaths": [
+      "ServerStorage._GameConfigPackage"
+    ],
+    "docs": [
+      "project-docs/PlaceTopology.md",
+      "project-docs/FeatureContracts/GameConfigContract.md"
+    ],
+    "risks": [
+      "Runtime config remains authoritative over docs for exact place metadata.",
+      "Sensitive server-only targets must not be copied into ReplicatedStorage or client code."
+    ],
+    "next": "Update docs/dashboard when place config or staff role config changes."
+  },
+  {
+    "id": "CoreNetwork",
+    "title": "Core Network",
+    "status": "Done",
+    "category": "Core",
+    "priority": "Medium",
+    "summary": "Central NetworkRegistry/ClientNetwork is the approved route layer. Contract v0.17.1 supports an explicit unlimited-route declaration used only by owner-approved Titan placement while preserving validation, server authority, and the ban on direct feature remotes.",
+    "dependsOn": [
+      "CoreRuntime"
+    ],
+    "ownedPaths": [
+      "ReplicatedStorage.GameSharedPackage.NetworkDefinitions"
+    ],
+    "docs": [
+      "project-docs/NetworkPolicy.md",
+      "project-docs/FeatureContracts/StudioContractsIndex.md"
+    ],
+    "risks": [],
+    "next": "Keep all new client/server intents behind registered network definitions."
+  },
+  {
+    "id": "CorePersistence",
+    "title": "Core Persistence",
+    "status": "Done",
+    "category": "Core",
+    "priority": "Medium",
+    "summary": "Contract v0.3.5 owns ProfileStore sessions and allowlisted documents, including persistent AmmoCase records with bounded claim/refund operations.",
+    "dependsOn": [
+      "GameConfig",
+      "CoreRuntime"
+    ],
+    "ownedPaths": [
+      "ServerScriptService.GameServerPackage.Core.Persistence"
+    ],
+    "docs": [
+      "project-docs/PersistencePolicy.md",
+      "project-docs/FeatureContracts/CorePersistenceContract.md"
+    ],
+    "risks": [
+      "Destructive profile operations must continue through approved persistence/profile APIs only."
+    ],
+    "next": "Do not add direct DataStore/ProfileStore access outside the persistence layer."
+  },
+  {
+    "id": "CoreLogging",
+    "title": "Core Logging",
+    "status": "Done",
+    "category": "Core",
+    "priority": "Medium",
+    "summary": "Structured core logging and audit-style events are available and used by startup, admin, server selection, character, CustomChat, and PD flows.",
+    "dependsOn": [
+      "CoreRuntime"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/ProjectContextDigest.md",
+      "project-docs/FeatureContracts/CoreLoggingContract.md"
+    ],
+    "risks": [],
+    "next": "Keep high-risk admin/routing/persistence actions logged with useful diagnostics."
+  },
+  {
+    "id": "CoreSecurity",
+    "title": "Core Security",
+    "status": "Done",
+    "category": "Core",
+    "priority": "Medium",
+    "summary": "Server-side security helper and fail-closed authority rules are established as the baseline for trusted gameplay systems.",
+    "dependsOn": [
+      "CoreLogging"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/AuthorityPolicy.md",
+      "project-docs/ArchitecturePolicy.md"
+    ],
+    "risks": [
+      "Dedicated anti-cheat/moderation product systems are still planned separately."
+    ],
+    "next": "Use CoreSecurity as the enforcement/reporting base for future anti-cheat and moderation work."
+  },
+  {
+    "id": "PlayerData",
+    "title": "Player Data",
+    "status": "Done",
+    "category": "Core",
+    "priority": "Medium",
+    "summary": "Account-level profile foundation is implemented and feeds character profile, permissions, dev tools, and future economy state.",
+    "dependsOn": [
+      "CorePersistence"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/PersistencePolicy.md"
+    ],
+    "risks": [],
+    "next": "Keep future owned state migrations explicit in schema/version notes."
+  },
+  {
+    "id": "CharacterProfile",
+    "title": "Character Profile",
+    "status": "Done",
+    "category": "Core",
+    "priority": "Medium",
+    "summary": "CharacterProfile contract v0.9.1 owns profile-schema-12 character data, including inventory-schema-6 spatial containers, zero-default MusketAmmo, unique bags, Musket, and ODM records.",
+    "dependsOn": [
+      "PlayerData",
+      "CorePersistence"
+    ],
+    "ownedPaths": [
+      "ServerScriptService.GameServerPackage.Features.CharacterProfile"
+    ],
+    "docs": [
+      "project-docs/FeatureContracts/CharacterProfileContract.md",
+      "project-docs/FeatureContracts/StudioContractsIndex.md"
+    ],
+    "risks": [
+      "Dual hair will require saved appearance schema compatibility/migration handling.",
+      "Published multi-slot activation, rollback, archive persistence, and 25/26 cap boundaries still require disposable-data validation."
+    ],
+    "next": "Publish linked packages and validate additional-slot creation, same-server switching, recoverable deletion, rollback, and the 25/26 cap boundary with disposable profiles."
+  },
+  {
+    "id": "CharacterLifecycle",
+    "title": "Character Lifecycle",
+    "status": "Done",
+    "category": "Core",
+    "priority": "Medium",
+    "summary": "Canonical Alive/WipedPending/Deleted lifecycle state and routing continuity fields are server-owned and validated by current tests.",
+    "dependsOn": [
+      "CharacterProfile",
+      "PlaceRegistry"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/ProjectContextDigest.md"
+    ],
+    "risks": [],
+    "next": "Continue routing and wipe/void changes through lifecycle APIs."
+  },
+  {
+    "id": "PlaceRegistry",
+    "title": "Place Registry",
+    "status": "Done",
+    "category": "Core",
+    "priority": "Medium",
+    "summary": "Place identity and destination metadata lookup are implemented for MainMenu, Development, and Wipe place keys in development environment.",
+    "dependsOn": [
+      "GameConfig"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/PlaceTopology.md",
+      "project-docs/FeatureContracts/PlaceRoutingContract.md"
+    ],
+    "risks": [
+      "Production/staging place metadata is not yet defined."
+    ],
+    "next": "Add staging/production place metadata when those environments exist."
+  },
+  {
+    "id": "CharacterCreation",
+    "title": "Character Creation",
+    "status": "Done",
+    "category": "Character",
+    "priority": "High",
+    "summary": "Creation flow, server validation, preview stability, movement lock, gender draft cache, fixed-head height preview, admin-forced preview context, and the permission-rechecked AdminAdditionalSlotCreation mode are implemented and Studio-validated. Dual independent hair slots remain tracked separately as an extension.",
+    "dependsOn": [
+      "CharacterProfile",
+      "CoreNetwork",
+      "GameConfig",
+      "AdminPermissions",
+      "MainMenu"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/FeatureContracts/CharacterCreationContract.md",
+      "project-docs/FeatureContracts/CharacterAppearanceContract.md",
+      "project-docs/KnownIssues.md"
+    ],
+    "risks": [
+      "Dual hair extension touches saved appearance schema, server validation, client draft state, randomization, preview application, and spawn-time application — tracked in roadmap item dual-hair-independent-slots.",
+      "Tester edge cases may still appear around height, head/torso contact, hair alignment, rotation, and body-type draft switching.",
+      "Forced charcreate command opens creation preview for an existing active character but does not yet save edits back onto that character.",
+      "Live cross-place AdminAdditionalSlotCreation teleport validation is deferred until linked packages can be published."
+    ],
+    "next": "Publish linked packages and validate a cross-place additional-slot draft/submission before treating staff slot creation as production-ready."
+  },
+  {
+    "id": "CharacterAppearance",
+    "title": "Character Appearance",
+    "status": "Done",
+    "category": "Character",
+    "priority": "High",
+    "summary": "Saved appearance revalidation and managed model application are implemented and Studio-validated. Admin Character Tools now persists validated direct RGB, classic Shirt/Pants catalog assets, and up to five managed rigid accessories on the caller's active Alive slot, while preserving legacy palette fields. Hair application currently supports one style slot; dual-slot expansion remains separate.",
+    "dependsOn": [
+      "CharacterProfile",
+      "CharacterCreation",
+      "CharacterLifecycle"
+    ],
+    "ownedPaths": [
+      "ServerScriptService.GameServerPackage.Features.CharacterAppearance",
+      "ReplicatedStorage._GameAssetsPackage.UI.PlayerName"
+    ],
+    "docs": [
+      "project-docs/FeatureContracts/CharacterAppearanceContract.md",
+      "project-docs/FeatureContracts/CharacterCreationContract.md",
+      "project-docs/KnownIssues.md"
+    ],
+    "risks": [
+      "Dual hair extension requires deterministic accessory naming/cleanup and migration from legacy hairStyle/hairColor/hairDarkness fields — tracked in roadmap item dual-hair-independent-slots.",
+      "Both hair accessories must tint from the same hairColor/hairDarkness values.",
+      "External catalog assets can become unavailable; cached sanitized assets fail safely, but published disposable-data validation is still required for save, respawn, and rejoin restoration."
+    ],
+    "next": "Publish linked packages and run the disposable Admin Character Tools clothing/accessory, respawn, rejoin, stale-slot, and rejection matrix before production acceptance."
+  },
+  {
+    "id": "CharacterLook",
+    "title": "Character Look",
+    "status": "InProgress",
+    "category": "Character",
+    "priority": "Medium",
+    "summary": "CharacterLook v0.2.1 retains bounded desktop-cursor Neck/Waist presentation and adds a server-validated Firearms aim envelope with reduced Waist pitch so the arms and held Musket follow without excessive bending.",
+    "dependsOn": [
+      "CoreNetwork",
+      "GlobalClientStartup",
+      "CharacterAppearance"
+    ],
+    "ownedPaths": [
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Features.CharacterLook",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackageLoader",
+      "ServerScriptService.GameServerPackage.Features.CharacterLook",
+      "ReplicatedStorage.GameSharedPackage.NetworkDefinitions"
+    ],
+    "docs": [
+      "project-docs/FeatureContracts/CharacterLookContract.md",
+      "project-docs/FeatureContracts/CoreNetworkContract.md",
+      "project-docs/AuthorityPolicy.md",
+      "project-docs/NetworkPolicy.md"
+    ],
+    "risks": [
+      "The central unreliable round trip is single-client validated, but two-account published observer visibility, packet-loss correction, and respawn cleanup remain required.",
+      "The animation-safe Waist layer is validated at idle and during basic walking with ODM gear present; sprint/run, Fists, parkour, traversal, and upper-body action animation composition still require hands-on acceptance."
+    ],
+    "next": "Finish the sprint/combat/parkour animation matrix, then run a published two-account observer test through respawns."
+  },
+  {
+    "id": "GlobalClientStartup",
+    "title": "Global Client Startup",
+    "status": "Done",
+    "category": "Core",
+    "priority": "Medium",
+    "summary": "Desktop keyboard-and-mouse client loading/bootstrap gate, fail-closed startup foundation, and shared authored ProximityPrompt presentation are implemented; mobile, tablet, touch-only, and gamepad support are out of scope.",
+    "dependsOn": [
+      "CoreRuntime"
+    ],
+    "ownedPaths": [
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Core.ProximityPromptController",
+      "ReplicatedStorage._GameAssetsPackage.UI.ProximityPrompt"
+    ],
+    "docs": [
+      "project-docs/FeatureContracts/StudioContractsIndex.md",
+      "project-docs/UIStyleGuide.md"
+    ],
+    "risks": [],
+    "next": "Keep new client features behind startup readiness and fail-closed behavior."
+  },
+  {
+    "id": "GameplayFoundation",
+    "title": "Gameplay Foundation",
+    "status": "InProgress",
+    "category": "Gameplay",
+    "priority": "High",
+    "summary": "GameplayFoundation v0.2.0 includes the owner-scoped per-character AnimationHandler used by player Movement, ODMGear, FistsCombat, and Firearms, alongside shared state, input, prediction, interpolation, and asset helpers.",
+    "dependsOn": [
+      "CoreRuntime",
+      "GlobalClientStartup"
+    ],
+    "ownedPaths": [
+      "ReplicatedStorage.GameSharedPackage.Features.GameplayFoundation.Shared",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Core.Input",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Core.Prediction",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Core.Interpolation",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Core.AnimationHandler",
+      "ReplicatedStorage._GameplayAssetsPackage"
+    ],
+    "docs": [
+      "project-docs/FeatureContracts/GameplayFoundationContract.md",
+      "project-docs/ArchitecturePolicy.md",
+      "project-docs/OptimizationPolicy.md"
+    ],
+    "risks": [
+      "Foundation helpers must stay generic and must not become trusted gameplay truth.",
+      "Main Menu should not load heavy gameplay assets or Development-only gameplay controllers."
+    ],
+    "next": "Keep player animation loading centralized while leaving selection, locks, combat truth, and movement truth in their feature owners."
+  },
+  {
+    "id": "Movement",
+    "title": "Movement",
+    "status": "InProgress",
+    "category": "Gameplay",
+    "priority": "High",
+    "summary": "Movement v0.2.5 retains always-available locomotion and animation ownership while rejecting Titan rig descendants as vault, ledge-grab, ledge-climb, and wall-run surfaces.",
+    "dependsOn": [
+      "GameplayFoundation",
+      "CoreRuntime",
+      "GlobalClientStartup"
+    ],
+    "ownedPaths": [
+      "ReplicatedStorage.GameSharedPackage.Features.Movement",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Features.Movement",
+      "ReplicatedStorage._GameplayAssetsPackage.Animations.Movement"
+    ],
+    "docs": [
+      "project-docs/FeatureContracts/MovementContract.md",
+      "project-docs/FeatureContracts/GameplayFoundationContract.md"
+    ],
+    "risks": [
+      "Current movement physics are a client prototype and still require a server validation boundary before production.",
+      "Sprint, jump/free-fall final-pose hold feel and distribution, slide, wall-run, traversal animation polish, respawn cleanup, ODM control handoff, and all-scale Titan parkour rejection need hands-on Play validation."
+    ],
+    "next": "Validate base locomotion with ODMGear present and absent, then define server-owned movement validation rules."
+  },
+  {
+    "id": "FistsCombat",
+    "title": "Fists Combat",
+    "status": "InProgress",
+    "category": "Gameplay",
+    "priority": "Medium",
+    "summary": "FistsCombat v0.5.1 validates every combat outcome while its upper-torso-bent held/reversed stance, late-window four-hit punch sequence, reactions, block loop, and cleanup use the unified player animation handler.",
+    "dependsOn": [
+      "CoreRuntime",
+      "CoreNetwork",
+      "ODMGear",
+      "GameplayFoundation"
+    ],
+    "ownedPaths": [
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage",
+      "ReplicatedStorage._GameplayAssetsPackage.UI.PassiveSkills",
+      "ReplicatedStorage._GameplayAssetsPackage.Animations.Fists"
+    ],
+    "docs": [
+      "project-docs/FeatureContracts/FistsCombatContract.md",
+      "project-docs/FistsPresentation.md",
+      "project-docs/UIStyleGuide.md"
+    ],
+    "risks": [
+      "Hands-on 0.12-second late-chain feel plus two-client block, parry, damage, and hit-reaction validation is still needed.",
+      "FistsCombat remains Development-only until generic Combat ownership is defined."
+    ],
+    "next": "Run two-client block/parry and damage validation, then extract reusable combat target/damage ownership."
+  },
+  {
+    "id": "MainMenu",
+    "title": "Main Menu",
+    "status": "Done",
+    "category": "Core",
+    "priority": "Medium",
+    "summary": "Entry menu flow, click-to-start, character creation routing, permission-rechecked and consumed AdminAdditionalSlotCreation context, map selection presentation, server selection surface, and MainMenu-only Chat/PlayerList suppression are present.",
+    "dependsOn": [
+      "CharacterProfile",
+      "CharacterLifecycle",
+      "PlaceSelection"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/GameOverview.md"
+    ],
+    "risks": [
+      "Publish-dependent server list behavior is tracked under ServerDirectory/ServerJoining."
+    ],
+    "next": "No broad MainMenu work until new map/server UX requirements are defined."
+  },
+  {
+    "id": "PlaceSelection",
+    "title": "Place Selection",
+    "status": "Done",
+    "category": "Server",
+    "priority": "High",
+    "summary": "Selectable Development metadata and MainMenu place selection flow are implemented. Development gameplay servers publish live ServerSelection rows with PD state/color, heartbeat TTL, and stable keys. Studio-validated; live two-account MemoryStore validation is tracked as a risk.",
+    "dependsOn": [
+      "PlaceRegistry",
+      "PlaceAccess",
+      "MainMenuClientBridge"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/FeatureContracts/ServerSelectionContract.md",
+      "project-docs/PlaceTopology.md"
+    ],
+    "risks": [
+      "Live MemoryStore publish/read behavior and same-server row persistence require published two-account validation."
+    ],
+    "next": "Validate live Development row visibility from a second account after publishing is re-enabled."
+  },
+  {
+    "id": "MainMenuClientBridge",
+    "title": "Main Menu Client Bridge",
+    "status": "Done",
+    "category": "Client",
+    "priority": "High",
+    "summary": "MainMenu network bridge owns sanitized menu state, character creation request/result handling, server selection presentation, forced CharacterCreation preview context, and the sanitized AdminAdditionalSlotCreation context. Studio-validated for owner; live cross-place additional-slot teleport validation is deferred until publishing is available.",
+    "dependsOn": [
+      "CoreNetwork",
+      "MainMenu",
+      "CharacterCreation",
+      "PlaceSelection",
+      "ServerJoining"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/FeatureContracts/MainMenuFlowContract.md",
+      "project-docs/FeatureContracts/CharacterCreationContract.md"
+    ],
+    "risks": [
+      "Live cross-place charcreate teleport through the actual CommandBar/network path requires publish-enabled multi-place validation."
+    ],
+    "next": "No broad MainMenuClientBridge work until dual hair client state work or new menu UX requirements are defined."
+  },
+  {
+    "id": "ServerJoining",
+    "title": "Server Joining",
+    "status": "Done",
+    "category": "Server",
+    "priority": "High",
+    "summary": "Quick Join uses the trusted directory, prefers live server rows, and uses short pending launch rows as reserved-server coordination so startup races do not create split servers. Studio-validated; reserved-server and MemoryStore live multi-client behavior still needs published validation.",
+    "dependsOn": [
+      "CoreNetwork",
+      "PlaceSelection",
+      "PlaceRouting"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/FeatureContracts/ServerSelectionContract.md",
+      "project-docs/FeatureContracts/PlaceRoutingContract.md"
+    ],
+    "risks": [
+      "Roblox reserved-server and MemoryStore same-server reuse behavior must be validated in published multi-client runtime."
+    ],
+    "next": "Validate Quick Join same-server reuse in published two-account runtime after server-selection-live-directory-rework validation runs."
+  },
+  {
+    "id": "NotificationFeed",
+    "title": "Notification Feed",
+    "status": "Done",
+    "category": "Core",
+    "priority": "Medium",
+    "summary": "Shared client notification surface exists for command, server-result, and player-facing feature-state feedback, including readable formatting for identifier-style reason codes.",
+    "dependsOn": [
+      "CoreNetwork",
+      "GlobalClientStartup"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/ProjectContextDigest.md"
+    ],
+    "risks": [],
+    "next": "Use the feed for new staff/player-facing server-result messages."
+  },
+  {
+    "id": "PlaceAccess",
+    "title": "Place Access",
+    "status": "Done",
+    "category": "Core",
+    "priority": "Medium",
+    "summary": "Server-authoritative place access policy checks are implemented with development inactive bypass and admin bypass permission support.",
+    "dependsOn": [
+      "PlaceRegistry",
+      "AdminPermissions",
+      "GameConfig"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/PlaceTopology.md",
+      "project-docs/FeatureContracts/PlaceRoutingContract.md"
+    ],
+    "risks": [],
+    "next": "Revisit when production access/wave approval policy is connected."
+  },
+  {
+    "id": "AdminPermissions",
+    "title": "Admin Permissions",
+    "status": "Done",
+    "category": "Staff",
+    "priority": "Medium",
+    "summary": "AdminCommand v1.19.3 adds an authored Titan kill-all action through the existing permission-checked command path alongside movement-safe held placement and the F3X-style Development tool suite.",
+    "dependsOn": [
+      "PlayerData",
+      "CoreSecurity",
+      "NotificationFeed",
+      "GameConfig"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/FeatureContracts/StudioContractsIndex.md",
+      "project-docs/FeatureContracts/AdminCommandContract.md",
+      "project-docs/FeatureContracts/BranchSystemContract.md",
+      "project-docs/KnownIssues.md"
+    ],
+    "risks": [
+      "charcreate remains restricted to wildcard/project lead unless character.creation.force is explicitly granted.",
+      "Published cross-server validation is still required for BranchSystem admin mutations targeting remote active profile sessions."
+    ],
+    "next": "After PackageLink publication, validate branchadd/invite/rank/kick/leader across two servers while retaining the existing pd and legacy-alias command checks."
+  },
+  {
+    "id": "PlaceRouting",
+    "title": "Place Routing",
+    "status": "Done",
+    "category": "Server",
+    "priority": "Critical",
+    "summary": "Place continuity routing, TeleportData handling, and wipe/datawipe/void flows are Studio-validated. Routing correctly checkpoints lifecycle state before teleport and enforces access rules. Live cross-place charcreate teleport validation is deferred until publishing is available.",
+    "dependsOn": [
+      "CharacterLifecycle",
+      "PlaceRegistry",
+      "PlaceAccess"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/FeatureContracts/PlaceRoutingContract.md",
+      "project-docs/PlaceTopology.md"
+    ],
+    "risks": [
+      "TeleportData forced creation intent and cross-place charcreate teleport require published multi-place validation.",
+      "Production/staging place metadata is not yet defined; routing will need to expand when those environments exist."
+    ],
+    "next": "After publish is available, validate cross-place charcreate teleport and end-to-end server list routing."
+  },
+  {
+    "id": "VoidWipe",
+    "title": "Void Wipe",
+    "status": "Done",
+    "category": "Permadeath",
+    "priority": "Medium",
+    "summary": "Void, wipe, and datawipe command flows are working based on current owner/tester Studio validation; full Wipe Place UX/governance remains future product work.",
+    "dependsOn": [
+      "CharacterLifecycle",
+      "PlaceRouting"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/GameOverview.md",
+      "project-docs/KnownIssues.md"
+    ],
+    "risks": [
+      "Final wipe place UX and void review governance are not complete product systems yet."
+    ],
+    "next": "Monitor for tester regressions and scope final Wipe Place UX/governance separately."
+  },
+  {
+    "id": "PermadeathEvents",
+    "title": "Permadeath Events",
+    "status": "Done",
+    "category": "Permadeath",
+    "priority": "High",
+    "summary": "Server-local Blue/Red PD event authority, AdminTab PD controls, safe-leave backend, WipedPending outcomes, and active-PD HUD are implemented and Studio-validated. The old top-right staff controls were removed.",
+    "dependsOn": [
+      "AdminPermissions",
+      "CharacterLifecycle",
+      "VoidWipe",
+      "NotificationFeed"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/FeatureContracts/PDEventContract.md",
+      "project-docs/KnownIssues.md"
+    ],
+    "risks": [
+      "PD icon propagation and server-list visibility require publish-enabled live multi-client validation.",
+      "Broader event tooling, death review, and post-event workflows remain incomplete."
+    ],
+    "next": "Validate PD icon and row color propagation in a published two-account session after publishing is re-enabled."
+  },
+  {
+    "id": "DevProfileTools",
+    "title": "Dev Profile Tools",
+    "status": "Done",
+    "category": "Permadeath",
+    "priority": "Medium",
+    "summary": "Development-only profile/character reset and snapshot tooling is available under Development place gating.",
+    "dependsOn": [
+      "PlayerData",
+      "CharacterProfile",
+      "AdminPermissions",
+      "CoreRuntime"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/ProjectContextDigest.md",
+      "project-docs/PlaceTopology.md"
+    ],
+    "risks": [
+      "Must remain place-gated and fail closed outside development contexts."
+    ],
+    "next": "Use only for development validation; do not expose to production roles."
+  },
+  {
+    "id": "BranchSystem",
+    "title": "Branch System",
+    "status": "NeedsReview",
+    "category": "Progression",
+    "priority": "Medium",
+    "summary": "BranchSystem v1 is implemented in DevelopmentPlace with fixed SL/SG/MP/TC/CB config, character-level multi-membership, lifecycle-aware global roster visibility, a canonical 16-bucket roster, account invitations, editable role ladders, metarole authority, offline/cross-server reconciliation, admin add/invite/rank/remove/leader commands, concurrent cached pagination reads, exact rank filtering, server-side search, and a membership-gated authored branch panel with shared loading/branchless feedback.",
+    "dependsOn": [
+      "CharacterLifecycle",
+      "AdminPermissions",
+      "CoreNetwork",
+      "CorePersistence",
+      "CharacterProfile",
+      "GameConfig",
+      "NotificationFeed"
+    ],
+    "ownedPaths": [
+      "ServerScriptService.GameServerPackage.Features.BranchSystem",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Features.BranchSystem",
+      "ReplicatedStorage.GameSharedPackage.Features.BranchSystem",
+      "ServerStorage._GameConfigPackage.BranchConfig",
+      "ReplicatedStorage._GameAssetsPackage.UI.BranchPanel"
+    ],
+    "docs": [
+      "project-docs/GameOverview.md",
+      "project-docs/FeatureContracts/BranchSystemContract.md"
+    ],
+    "risks": [
+      "PackageLink changes still need publication and propagation to every place.",
+      "Published two-account/two-server DataStore and MessagingService validation is still required.",
+      "Role, roster, and lifecycle truth must remain server-authoritative as future mission, progression, and Discord features integrate.",
+      "Published multi-server testing must confirm WipedPending hide and Alive restore invalidations reach already-open remote rosters."
+    ],
+    "next": "Publish the changed PackageLink roots, then run the documented two-account/two-server admin-command, WipedPending hide/Alive restore, offline/restart, and missed-message matrix before marking Done."
+  },
+  {
+    "id": "InventoryEconomy",
+    "title": "Inventory Economy",
+    "status": "InProgress",
+    "category": "Progression",
+    "priority": "High",
+    "summary": "Contract v0.14.0 adds persistent Musket cartridges, generic stack handling, state-preserving Musket moves, atomic reload completion, and persistent Ammo Cases.",
+    "dependsOn": [
+      "PlayerData",
+      "CharacterProfile",
+      "CharacterLifecycle",
+      "CorePersistence",
+      "CoreNetwork",
+      "GameConfig",
+      "AdminPermissions",
+      "GlobalClientStartup"
+    ],
+    "ownedPaths": [
+      "ReplicatedStorage.GameSharedPackage.Features.InventoryEconomy",
+      "ServerScriptService.GameServerPackage.Features.InventoryEconomy",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Features.InventoryEconomy",
+      "ReplicatedStorage._GameAssetsPackage.UI.Inventory",
+      "ReplicatedStorage._GameAssetsPackage.Models.InventoryEconomy",
+      "ReplicatedStorage._GameplayAssetsPackage.Models.InventoryEconomy",
+      "ReplicatedStorage._GameplayAssetsPackage.Models.InventoryEconomy.Backpacks",
+      "ReplicatedStorage._GameplayAssetsPackage.Models.InventoryEconomy.Canisters",
+      "Workspace.LargeGasCanister",
+      "Workspace.InfiniteGearCase",
+      "Workspace.FiniteGearCase",
+      "Workspace.BladeCase",
+      "Workspace.BackpackCase"
+    ],
+    "docs": [
+      "project-docs/GameOverview.md",
+      "project-docs/PersistencePolicy.md",
+      "project-docs/FeatureContracts/InventoryEconomyContract.md"
+    ],
+    "risks": [
+      "Published cross-place ProfileStore handoff, two-server station contention, AmmoCase claim contention/refund, and interruption reconciliation are not proven by local Studio Play.",
+      "Loaded Backpack transfer has static and single-client coverage but still requires published two-real-player duplication/loss validation.",
+      "Other live servers intentionally refresh stale station state only on their next interaction; Phase 1 has no push invalidation.",
+      "ODM movement physics remain client-feel; Phase 1 removes direct gas writes but does not implement full movement anti-cheat."
+    ],
+    "next": "Publish PackageLink changes to every place and run cross-place/two-server persistence, Musket state/reload interruption, AmmoCase and BackpackCase contention/refund/recreation, loaded-bag transfer, and desktop Tab interaction validation."
+  },
+  {
+    "id": "CraftingFarming",
+    "title": "Crafting Farming",
+    "status": "Planned",
+    "category": "Progression",
+    "priority": "Medium",
+    "summary": "Farming, mining, gathering, and crafting loops are planned to support branch logistics and event preparation.",
+    "dependsOn": [
+      "InventoryEconomy"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/GameOverview.md"
+    ],
+    "risks": [
+      "Requires InventoryEconomy persistence and anti-exploit validation."
+    ],
+    "next": "Define resource sources, recipes, and authority boundaries after inventory schema exists."
+  },
+  {
+    "id": "BuildPersistence",
+    "title": "Build Persistence",
+    "status": "Planned",
+    "category": "Progression",
+    "priority": "Medium",
+    "summary": "FOBs, barricades, expedition builds, damage, destruction, and persistence rules are planned.",
+    "dependsOn": [
+      "InventoryEconomy",
+      "CraftingFarming",
+      "PermadeathEvents",
+      "PlaceRegistry"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/GameOverview.md"
+    ],
+    "risks": [
+      "Canon-affecting builds need PD/event policy, inventory costs, and server-authoritative persistence."
+    ],
+    "next": "Do not implement until InventoryEconomy, PD build rules, and place-scoped persistence are designed."
+  },
+  {
+    "id": "Combat",
+    "title": "Combat",
+    "status": "FoundationStarted",
+    "category": "Gameplay",
+    "priority": "High",
+    "summary": "Server-authoritative combat slices exist for ODMGear player slashes; the planned TitanSystem v1 will consume a generic server-confirmed zone, injury, Bite, and death boundary while PD-only canon consequences remain outside Combat.",
+    "dependsOn": [
+      "CharacterLifecycle",
+      "PermadeathEvents",
+      "AntiCheatModeration"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/GameOverview.md",
+      "project-docs/AuthorityPolicy.md"
+    ],
+    "risks": [
+      "Combat truth can mutate lifecycle/canon state and requires anti-cheat validation."
+    ],
+    "next": "Extract reusable target, injury, and death boundaries from ODMGear before the planned TitanSystem v1 integration and PD wiring."
+  },
+  {
+    "id": "AntiCheatModeration",
+    "title": "Anti Cheat Moderation",
+    "status": "Planned",
+    "category": "Gameplay",
+    "priority": "High",
+    "summary": "Moderation actions and anti-cheat validation for movement/combat/sensitive actions are planned.",
+    "dependsOn": [
+      "CoreSecurity",
+      "AdminPermissions",
+      "Combat"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/GameOverview.md",
+      "project-docs/AuthorityPolicy.md"
+    ],
+    "risks": [
+      "Depends on CoreSecurity, AdminPermissions, and future Combat/ODMGear truth."
+    ],
+    "next": "Scope moderation command surface and validation hooks alongside Combat/ODMGear."
+  },
+  {
+    "id": "TalentSystem",
+    "title": "Talent System",
+    "status": "Done",
+    "category": "Gameplay",
+    "priority": "High",
+    "summary": "TalentSystem v1.2.0 is implemented in Development with hidden progression, ten pullable talents, seven functional saved Passives, restart-safe Active/Passive inventory, nine active slots, and the owner-authored equipped-only ODM SkillBar.",
+    "dependsOn": [
+      "CoreRuntime",
+      "CoreNetwork",
+      "CorePersistence",
+      "CharacterProfile",
+      "CharacterLifecycle",
+      "PermadeathEvents",
+      "Movement",
+      "ODMGear",
+      "FistsCombat",
+      "MindlessTitanSystem"
+    ],
+    "ownedPaths": [
+      "ReplicatedStorage.GameSharedPackage.Features.TalentSystem",
+      "ServerScriptService.GameServerPackage.Features.TalentSystem",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Features.TalentSystem",
+      "ReplicatedStorage._GameAssetsPackage.UI.TalentSystem"
+    ],
+    "docs": [
+      "project-docs/FeatureContracts/TalentSystemContract.md",
+      "project-docs/FeatureContracts/README.md",
+      "project-docs/FeatureContracts/StudioContractsIndex.md"
+    ],
+    "risks": [
+      "Two-real-player direct kill, environmental credit, assist threshold, and concurrent selection validation remain required.",
+      "Blue/Red time rates, five-minute inactivity, reconnect/server persistence, character switching, and final wipe deletion require published multi-session validation.",
+      "The four delegated ODM effects retain current behavior in single-client startup, but cooldown/gas/movement feel and observer effects require hands-on equipped-only testing.",
+      "All seven Passives compile and reconcile, but saved enable/disable behavior, exact movement feel, the low-gas threshold, statistical blade preservation, percentage-preserving health changes, and real-player damage/gas measurement require live active-profile validation."
+    ],
+    "next": "Run the contract validation matrix with two real players, a real Titan combat death, reconnect/server switching, and a disposable wiped character; clean all test state afterward."
+  },
+  {
+    "id": "ODMGear",
+    "title": "ODMGear",
+    "status": "InProgress",
+    "category": "Gameplay",
+    "priority": "High",
+    "summary": "Development ODMGear v0.13.1 keeps Titan hooks on exact visible animated body-part anchors and prevents the hooked owner root from tunnelling through those parts while preserving tangential orbit motion.",
+    "dependsOn": [
+      "GameplayFoundation",
+      "Movement",
+      "CoreRuntime",
+      "GlobalClientStartup",
+      "Combat",
+      "InventoryEconomy",
+      "TalentSystem",
+      "AntiCheatModeration"
+    ],
+    "ownedPaths": [
+      "ReplicatedStorage.GameSharedPackage.Features.ODMGear",
+      "ServerScriptService.GameServerPackage.Features.ODMGear",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Features.ODMGear",
+      "ReplicatedStorage._GameplayAssetsPackage.Models.ODMG",
+      "ReplicatedStorage._GameplayAssetsPackage.Animations.ODMG",
+      "ReplicatedStorage._GameplayAssetsPackage.UI.ODMG",
+      "Workspace.GearUpgradeTable"
+    ],
+    "docs": [
+      "project-docs/FeatureContracts/ODMGearContract.md",
+      "project-docs/FeatureContracts/GameplayFoundationContract.md",
+      "project-docs/GameOverview.md",
+      "project-docs/ODMGearImportAudit.md"
+    ],
+    "risks": [
+      "Moving-Titan hooks render immediately on the owner and replicate from a server-validated visible body-part Attachment; the new root sweep/overlap guard still requires two-client, high-speed, all-limb, 30/60/120 FPS validation for traversal feel and observer continuity.",
+      "Q/E hook and Space boost input still need hands-on movement feel validation in Studio viewport.",
+      "Gear visual attachment is prototype-welded to torso/root and may need final alignment tuning.",
+      "Gas prediction, G gas-check feedback, and particle effects remain client presentation, but replicated InventoryEconomy snapshots are authoritative.",
+      "Direct damage, knockback, health-bar updates, and deterministic clash outcomes passed Workspace dummy tests; client-assisted contact hints, real-player hook targets, and real-player clashes still need hands-on/two-client validation.",
+      "Published BladeHold 135768463599847 reports zero track duration but plays as a looping Action4 track at full animation weight; its continuous root-only 120-degree airborne Mouse1 lean and authored hold pose need hands-on viewport confirmation.",
+      "Titan slash contact now sweeps up to 24 studs between consecutive client root samples so small nape zones are not skipped at ODM speed. The sweep remains an untrusted hint; real 30/60/120 FPS and 0-250 ms acceptance must confirm reliability without excessive false opportunities.",
+      "TitanHeldBy cancellation/rejection passed real held-player input and stale-state injection in single-client Play; the new TitanSystem hold/release integration still requires two-client validation.",
+      "2026-07-16: real-player slash knockback was being canceled by its own movement lock (fixed; see KnownIssues.md and ODMGearContract.md changelog) because dummy targets never exercised the client movement controller that had the bug. Studio direct-injection validation confirmed the fix; two-real-player hands-on validation is still required.",
+      "2026-08-01: Titan slash damage regression was fixed by resolving the registered MindlessTitanSystem API instead of the removed TitanSystem feature id; owner Play confirmation passed. Real 30/60/120 FPS and 0-250 ms reliability remains an acceptance gate.",
+      "2026-08-01: Client slash sampling now checks the configured 10-stud box alongside radius samples, improving box-corner coverage while preserving server validation; two-client reliability remains an acceptance gate.",
+      "Imported Workspace.ODMG scripts are disabled and reference-only; future code must continue decomposing concepts instead of copying legacy scripts.",
+      "Unrelated YellFrame UI infinite-yield warning and intermittent PDEvent_RequestState route warning appeared during Play test and should be tracked separately if they persist."
+    ],
+    "next": "Validate owner-local and observer-replicated moving-Titan hooks plus no-tunnel root correction on all visible limb families, hidden-volume and Titan wall-hang rejection, Titan slash generation handling, TitanHeldBy rescue/release, and slash/knockback in two-client Studio play."
+  },
+  {
+    "id": "MindlessTitanSystem",
+    "title": "Mindless Titan System",
+    "status": "InProgress",
+    "category": "Gameplay",
+    "priority": "Medium",
+    "summary": "Mindless Titan v3 is ImplementedDevelopment / 3.18.6 / Hybrid / ServerRigClientContactHints. PureTitanPredator retains responsive pursuit but now derives grounded approach and Backstep recovery from measured GroundFront palm reach instead of crowding the player under its root.",
+    "dependsOn": [
+      "CoreRuntime",
+      "CoreNetwork",
+      "GameplayFoundation",
+      "ODMGear",
+      "AdminCommand",
+      "PermadeathEvents",
+      "Combat"
+      ,"TalentSystem"
+    ],
+    "ownedPaths": [
+      "ReplicatedStorage.GameSharedPackage.Features.MindlessTitanSystem",
+      "ServerScriptService.GameServerPackage.Features.MindlessTitanSystem",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Features.MindlessTitanSystem",
+      "ReplicatedStorage._GameplayAssetsPackage.Models.Titan",
+      "ReplicatedStorage._GameplayAssetsPackage.Animations.Titan.Mindless",
+      "ReplicatedStorage._GameAssetsPackage.UI.Titan"
+    ],
+    "docs": [
+      "project-docs/TitanSystemPlan.md",
+      "project-docs/TitanAnimationAssetRequirements.md",
+      "project-docs/FeatureContracts/TitanSystemContract.md",
+      "project-docs/AuthorityPolicy.md",
+      "project-docs/NetworkPolicy.md"
+    ],
+    "risks": [
+      "PureTitanPredator difficulty 100 is the strongest-first Development baseline. v3.18.6 measures GroundFront central palm reach as `0.498618H`, approaches to `0.468701H`, and treats below `0.337465H` as too close. Valid-band targets are attacked without a behind-self destination; crowded Titans face the target and Backstep to authored spacing before GroundFront. Responsive turning and action-axis rules remain intact. The 42-scenario harness passes, but real owner collision/contact and 5/10/30 m expert-ODM acceptance remain open.",
+      "Replicated AI/F8 debug was removed after its response-tree tuple exceeded the unreliable-event payload limit. v3.18 also removes `ActionStarted` AI debug and simultaneous Shadow calculation. Exact planning is bounded to 3 ms or two solves per fixed step; six actions enter exact solving first and the search expands by two across later cognition ticks while pursuit continues. A fresh Play frame-time/clean-console rerun remains open because Studio MCP still did not transition out of Edit mode.",
+      "The single visible server rig removes client/proxy phase divergence; the 60 Hz anchored root step should reduce visible low-FPS/jitter, but Animator delivery and region-dependent smoothness still require two-real-client hands-on acceptance.",
+      "Visible palm contact remains a victim-client Tier-B hint. A malicious client can suppress hints to avoid grabs; server rig overlap without a hint is telemetry and never grants a hold.",
+      "The victim client owns the visible GrabVolume contact gate through action-scoped Touched signals plus an exact 60 Hz overlap fallback. Only direct character body parts count; the server keeps identity, action sequence, bounded timestamp, proximity, LOS, holder state, rate limits, and rewind checks. Real 30/60/120 FPS and 0-250 ms testing must confirm transient-contact reliability.",
+      "The 96-rig Development cap is provisional. Server frame, physics, replication bandwidth, client render, memory, Animator tracks, connections, welds, pool cleanup, and a 30-minute soak have not passed at cap.",
+      "Single-server rapid-release, historical-contact ownership, and miss-grace regressions pass. Two-client target-switch/action-lock, latency-dependent historical contact, grab rollback, observer hold, rescue, Blind release, full-clip Eat-to-Bite timing, moving-hook collision, nape/eye slash, 5 m/30 m collision, Death fade, and pool reuse remain open acceptance gates.",
+      "Automatic scale-aware body casts, persisted coarse waypoints, slope/ledge checks, and local replanning replace the authored-lane dependency, but wall, corridor, dynamic obstacle, and 5/10/30 m acceptance remain open.",
+      "Future-contact family planning, rear-axis commitment, per-target contextual miss isolation and success forgetting passed deterministic checks. The older SetupBrake, normal SetupCorrection, failure stand-off and lateral no-contact recovery motion paths are intentionally bypassed by v3.18.3 in favor of direct hunger pursuit; underfoot Backstep remains. Owner feel and all authored Capture families still require acceptance at 30/60/120 FPS and 0-250 ms latency.",
+      "The v3.2.7 Blind/Death server timeline passed preload, entry-weight, monotonic playback, and full-loop endpoint-freeze checks, but observer-client smoothness, region/network delivery, and unanchored expert ODM feel remain hands-on acceptance gates."
+    ],
+    "next": "Owner-rerun stationary ground spacing and deliberate foot-level crowding first: confirm the Titan stops in authored GroundFront reach, attacks instead of watching, backs out while facing the player when below 0.337H, then grabs from the reopened angle; also confirm responsive orbit turning and real GrabVolume-only holds before broader gates."
+  },
+  {
+    "id": "AbnormalTitanSystem",
+    "title": "Abnormal Titan System",
+    "status": "Planned",
+    "category": "Gameplay",
+    "priority": "Medium",
+    "summary": "Planned separate system for Abnormal-class Titans with distinct AI locomotion, attack logic, and contract. Shares no runtime code with MindlessTitanSystem.",
+    "dependsOn": [
+      "CoreRuntime",
+      "CoreNetwork",
+      "MindlessTitanSystem"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/FeatureContracts/AbnormalTitanContract.md"
+    ],
+    "risks": [
+      "Design TBD; must not reuse MindlessTitanSystem internals."
+    ],
+    "next": "Define AI locomotion model, attack catalog, authority boundary, and package paths when Abnormal design begins."
+  },
+  {
+    "id": "DiscordBotIntegration",
+    "title": "Discord Bot Integration",
+    "status": "Planned",
+    "category": "External",
+    "priority": "Medium",
+    "summary": "Discord wave approval, moderation, branch sync, wipe/void support, and staff bot workflows are planned.",
+    "dependsOn": [
+      "AdminPermissions",
+      "VoidWipe",
+      "BranchSystem",
+      "AntiCheatModeration"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/GameOverview.md"
+    ],
+    "risks": [
+      "External authority bridge must be authenticated, audited, and permission-gated."
+    ],
+    "next": "Design API/permission boundary after Roblox-side admin/branch surfaces mature."
+  },
+  {
+    "id": "ServerDirectory",
+    "title": "Server Directory",
+    "status": "NeedsReview",
+    "category": "Server",
+    "priority": "High",
+    "summary": "MemoryStore-backed live server directory now uses gameplay-server-published v2 snapshots from Development servers, reserved access codes as stable keys, 15s heartbeat, 180s TTL, 210s stale cutoff, PD state/color, and reserved publicPlayers for future server-owned public player data.",
+    "dependsOn": [
+      "PlaceRegistry",
+      "PlaceRouting",
+      "ServerJoining",
+      "AdminPermissions",
+      "PermadeathEvents",
+      "CoreLogging"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/FeatureContracts/ServerSelectionContract.md",
+      "project-docs/KnownIssues.md"
+    ],
+    "risks": [
+      "Directory write/read behavior depends on Roblox MemoryStore and published multi-place runtime.",
+      "PD icon visibility, row persistence, and Quick Join same-server reuse still need live two-account validation."
+    ],
+    "next": "Run published two-account validation for row persistence, PD icon propagation, Quick Join reuse, selected-row join, and owner-leave row persistence."
+  },
+  {
+    "id": "WebhookAuditLogging",
+    "title": "Webhook Audit Logging",
+    "status": "NeedsReview",
+    "category": "Staff",
+    "priority": "Medium",
+    "summary": "Core audit-style logging exists, but external webhook delivery for commands, PD lifecycle, server joins, security, and combat is not yet fully scoped.",
+    "dependsOn": [
+      "CoreLogging",
+      "AdminPermissions",
+      "CharacterCreation",
+      "PermadeathEvents",
+      "ServerJoining",
+      "Combat",
+      "CoreSecurity"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/GameOverview.md",
+      "project-docs/FeatureContracts/WebhookIntegrationContract.md"
+    ],
+    "risks": [
+      "External webhook output must avoid leaking sensitive/player-private data and should be permission-aware.",
+      "2026-07-15: WebhookIntegration.WebhookService no longer embeds a credential; it now reads from a new server-only WebhookConfig module (currently disabled/empty pending a freshly-regenerated webhook URL)."
+    ],
+    "next": "Decide whether webhook delivery is needed before Discord bot integration, then define redaction/audit policy."
+  },
+  {
+    "id": "AdminCommand",
+    "title": "Admin Command",
+    "status": "Done",
+    "category": "Staff",
+    "priority": "Medium",
+    "summary": "AdminCommand contract v1.20.0 adds permission-gated MusketAmmo grants, AmmoCase spawning, and authored Ammo Case Prop Controls alongside the existing staff surfaces.",
+    "dependsOn": [
+      "CharacterLifecycle",
+      "BranchSystem",
+      "PermadeathEvents",
+      "AdminPermissions",
+      "CoreNetwork",
+      "CharacterProfile",
+      "PlaceRegistry",
+      "MainMenuClientBridge",
+      "InventoryEconomy",
+      "MindlessTitanSystem",
+      "ODMGear"
+    ],
+    "ownedPaths": [
+      "ServerScriptService.GameServerPackage.Features.AdminCommand",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Features.AdminCommand",
+      "ReplicatedStorage.GameSharedPackage.Features.AdminCommand"
+    ],
+    "docs": [
+      "project-docs/FeatureContracts/AdminCommandContract.md",
+      "project-docs/FeatureContracts/CoreNetworkContract.md"
+    ],
+    "risks": [
+      "Cross-place creation cannot complete in Studio and requires published-package validation.",
+      "Same-server two-slot switching, failure rollback, archive persistence, and 25/26 cap boundaries require disposable test data.",
+      "Character Tools persistence and external catalog loading require a disposable published-profile validation pass; owner data was not mutated during Studio UI validation.",
+      "Gas/blade command permissions and session-only unlimited flags require published multi-account validation; Studio Play verified module loading and command metadata without mutating owner inventory."
+    ],
+    "next": "Publish linked packages and run the tracked disposable-profile slot-management and Character Tools persistence matrices."
+  },
+  {
+    "id": "AdminMusic",
+    "title": "Admin Music",
+    "status": "NeedsReview",
+    "category": "Staff",
+    "priority": "Medium",
+    "summary": "The authored Admin Music panel reads a server-only catalog with 146 songs whose 145 unique audio assets passed Development load checks, clones full-width rows, provides reliable name/author/id search focus and enlarged playback-slider hit areas, and controls permission-gated server-wide music plus a configured track-switch cue that completes before cancellable replacement playback, shared volume, synchronized seeking, current-song state, late state requests, fixed responsive bands, and panel-specific resize bounds.",
+    "dependsOn": [
+      "AdminCommand",
+      "AdminPermissions",
+      "CoreNetwork",
+      "GameConfig"
+    ],
+    "ownedPaths": [
+      "ServerStorage._GameConfigPackage.MusicConfig",
+      "ServerScriptService.GameServerPackage.Features.AdminCommand.Server.AdminMusicService",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Features.AdminCommand.Client.AdminMusicController",
+      "ReplicatedStorage.GameSharedPackage.Features.AdminCommand.Shared.AdminMusicDefinitions",
+      "ReplicatedStorage._GameAssetsPackage.UI.AdminPanels.MusicPanel"
+    ],
+    "docs": [
+      "project-docs/FeatureContracts/AdminMusicContract.md",
+      "project-docs/FeatureContracts/AdminCommandContract.md",
+      "project-docs/UIStyleGuide.md"
+    ],
+    "risks": [
+      "The filtered 146-song MusicConfig and track-switch cue changes still require linked-package publication for distribution outside the current Development place edit.",
+      "The Development Play audit removed 163 rejected unique assets; Reflection and Reflective Sadness intentionally remain separate names for the permitted asset ID 9042437001.",
+      "Published two-client synchronization, late join behavior, and audio permission behavior still require validation with the staged catalog."
+    ],
+    "next": "Publish the validated _GameConfigPackage changes, then run two-client play/switch-cue/stop/volume/seek/late-join validation with the permission-audited catalog."
+  },
+  {
+    "id": "CustomChat",
+    "title": "Custom Chat",
+    "status": "Done",
+    "category": "Staff",
+    "priority": "High",
+    "summary": "CustomChat v0.3.1 uses the packaged NetworkRegistry/CorePersistence backend with authored chat, yell, narration, fixed-size /me presentation, mandatory Roblox filtering, structured diagnostics, command bridging, and AdminTabs-exclusive toolbar input that restores chat when the tabs close.",
+    "dependsOn": [
+      "CoreLogging",
+      "CoreNetwork",
+      "CorePersistence",
+      "AdminPermissions",
+      "AdminCommand",
+      "GameConfig",
+      "GlobalClientStartup"
+    ],
+    "ownedPaths": [
+      "ReplicatedStorage.GameSharedPackage.Features.CustomChat",
+      "ServerScriptService.GameServerPackage.Features.CustomChat",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Features.CustomChat",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Features.Yell",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Features.Narration",
+      "ServerStorage._GameConfigPackage.CustomChatConfig",
+      "ReplicatedStorage._GameAssetsPackage.UI.Chat",
+      "ReplicatedStorage._GameAssetsPackage.UI.Yell",
+      "ReplicatedStorage._GameAssetsPackage.UI.Narration",
+      "ReplicatedStorage._GameAssetsPackage.UI.LoreAction"
+    ],
+    "docs": [
+      "project-docs/FeatureContracts/CustomChatContract.md",
+      "project-docs/NetworkPolicy.md",
+      "project-docs/PersistencePolicy.md",
+      "project-docs/UIStyleGuide.md"
+    ],
+    "risks": [
+      "Roblox TextService per-recipient chat filtering currently emits a deprecation warning recommending TextChatService-only flows; CustomChat keeps Roblox filtering required for standard users and falls back to Roblox-filtered broadcast text when recipient-specific output is empty.",
+      "2026-07-15: the previously-exposed CustomChat webhook credential was cleared and disabled (enabled = false, empty URL) rather than left live; chat Discord logging is silent until the owner pastes a freshly-regenerated webhook URL.",
+      "Development Play validation still needed after NetworkRegistry/CorePersistence migration to confirm startup, message send/receive, and notification routes all work correctly."
+    ],
+    "next": "Run published multi-client chat, CommandBar, webhook, and filterbypass validation after the NetworkRegistry migration."
+  },
+  {
+    "id": "WipePlace",
+    "title": "Wipe Place",
+    "status": "Done",
+    "category": "Permadeath",
+    "priority": "Medium",
+    "summary": "Dedicated wipe/void review place is implemented and functional. WipedPending characters are routed here to a server-selected Fate dialogue, then can accept their fate through the existing server-validated flow. Dialogue text and selection remain server-owned; the client receives only one active line at a time.",
+    "dependsOn": [
+      "VoidWipe",
+      "PlaceRouting",
+      "PlaceRegistry",
+      "AdminPermissions"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/GameOverview.md",
+      "project-docs/SystemRoadmap.md",
+      "project-docs/FeatureContracts/WipeReviewContract.md"
+    ],
+    "risks": [
+      "Final wipe/void review governance rules are not yet scoped.",
+      "WipedPending routing must remain server-authoritative and not allow client bypass."
+    ],
+    "next": "Monitor for edge cases in the wipe review flow. No broad WipePlace rework until new governance requirements are scoped."
+  },
+  {
+    "id": "ActorSupport",
+    "title": "Actor Support",
+    "status": "Planned",
+    "category": "Progression",
+    "priority": "Low",
+    "summary": "Actor slots, actor acceptance flow, actor rewards, and support for civilian, rogue, criminal, and special event roles are planned. Actors are normal players in separate acceptance/slot pools who may receive XP rewards for event acting.",
+    "dependsOn": [
+      "PermadeathEvents",
+      "BranchSystem",
+      "XPProgression"
+    ],
+    "ownedPaths": [],
+    "docs": [
+      "project-docs/GameOverview.md"
+    ],
+    "risks": [
+      "Actor permissions and role assignment must be server-authoritative.",
+      "Actor XP reward model must integrate cleanly with the main XP/progression system."
+    ],
+    "next": "Define actor slot policy and role mechanics after XPProgression and PermadeathEvents production flows mature."
+  },
+  {
+    "id": "AdminTab",
+    "title": "Admin Tab",
+    "status": "Done",
+    "category": "Staff",
+    "priority": "Medium",
+    "summary": "Unified admin tab surface with functional authored Titan controls, Studio-style general selection/transform gizmos, Help and Inner queues, narration, Character Slot Management, and persistent Character Tools. Titan and transform outcomes use server-validated routes.",
+    "dependsOn": [
+      "AdminPermissions",
+      "AdminCommand",
+      "NotificationFeed",
+      "CoreNetwork",
+      "CharacterProfile",
+      "CharacterAppearance",
+      "CharacterCreation",
+      "MainMenuClientBridge",
+      "PlaceRouting",
+      "MindlessTitanSystem"
+    ],
+    "ownedPaths": [
+      "ReplicatedStorage._GameAssetsPackage.UI.AdminTabs",
+      "ReplicatedStorage._GameAssetsPackage.UI.AdminPanels",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Features.AdminCommand.Client.AdminTitanPlacementController",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Features.AdminCommand.Client.AdminSelectionController",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Features.AdminCommand.Client.AdminSlotManagementController",
+      "StarterPlayer.StarterPlayerScripts.GameClientPackage.Features.AdminCommand.Client.AdminCharacterToolsController"
+    ],
+    "docs": [
+      "project-docs/FeatureContracts/AdminCommandContract.md",
+      "project-docs/FeatureContracts/StudioContractsIndex.md"
+    ],
+    "risks": [
+      "Admin panel surface must be strictly permission-gated; no client-side bypass for panel visibility or action execution.",
+      "Selection transforms are Development-only session edits; persistence-owned stations and live Titan runtime objects intentionally remain read-only in the generic transform panel.",
+      "Help queue must handle spam and integrate with Discord bot when available.",
+      "Cross-place New Slot cannot complete in Studio; published validation is tracked separately.",
+      "Character Tools external clothing/accessory persistence needs a disposable published-profile validation pass."
+    ],
+    "next": "Publish linked packages and validate Character Tools save/respawn/rejoin/rejection behavior alongside the existing disposable slot-management matrix."
+  }
+]

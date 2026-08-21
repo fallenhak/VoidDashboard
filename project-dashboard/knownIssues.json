@@ -1,0 +1,146 @@
+[
+    {
+        "id":  "server-selection-live-directory-zero-count",
+        "date":  "2026-06-28",
+        "priority":  "P0",
+        "status":  "ResolvedPendingPublishValidation",
+        "systems":  [
+                        "ServerJoining",
+                        "ServerDirectory",
+                        "PlaceSelection",
+                        "PlaceRouting",
+                        "PermadeathEvents",
+                        "MainMenuClientBridge"
+                    ],
+        "title":  "Server selection live directory, Quick Join, and PD indicator drift",
+        "summary":  "ServerSelection now uses gameplay-server-published v2 live snapshots for Development servers. Rows carry server-owned player count, PD active/type/color, lock state, stable ids, TTL/stale heartbeat policy, and reserved empty publicPlayers for future public server data. Live two-account validation is still required.",
+        "ownerReport":  [
+                            "Friend opened a server through Quick Join.",
+                            "Owner did not see the server in ServerSelection.",
+                            "Owner pressed Quick Join and joined the friend server anyway.",
+                            "After the friend left and checked main menu, the server still did not show.",
+                            "F9 reported server count 0.",
+                            "2026-06-28 follow-up screenshots showed server raw=0 and client UI zero-row warning spam.",
+                            "2026-06-28 follow-up: server rows appeared, but PD active state/icon did not show to another MainMenu client.",
+                            "2026-06-28 follow-up: Quick Join users opened separate servers instead of joining the visible existing server.",
+                            "2026-06-28 follow-up: server display ids do not need an SRV prefix; code blocks are enough.",
+                            "2026-06-29 owner follow-up: live multi-place/multi-client validation is blocked for about two days because the game cannot be published; only Studio testing is currently possible.",
+                            "2026-07-01 follow-up: PD active icon still did not show in server list and rows disappeared after about one minute; root cause was Development servers not running ServerSelection and relying on a short MainMenu pending launch seed."
+                        ],
+        "requiredOutcome":  [
+                                "Visible server rows and Quick Join must use the same trusted live directory source.",
+                                "Directory diagnostics must show publish/read/filter/UI row counts without spamming every poll.",
+                                "Active destination servers must publish heartbeat data quickly enough to appear in main menu.",
+                                "Quick Join must join an existing available live server row and only create a fallback server when no row exists.",
+                                "PD active/type state must be published as server-scoped row data and tint the authored PD icon by type.",
+                                "Server display ids should be compact code strings without an SRV prefix.",
+                                "Development gameplay servers must run ServerSelection and publish their own live snapshot row instead of depending on MainMenu placeholder data.",
+                                "Server rows must be extensible for future server-owned public player data through a sanitized publicPlayers field."
+                            ],
+        "sourceDoc":  "project-docs/KnownIssues.md"
+    },
+    {
+        "id":  "character-creation-preview-rig-moves-on-appearance-change",
+        "date":  "2026-06-28",
+        "priority":  "P0",
+        "status":  "Resolved",
+        "systems":  [
+                        "CharacterCreation",
+                        "CharacterAppearance",
+                        "MainMenuClientBridge"
+                    ],
+        "title":  "Character creation preview rig moves or flings during appearance changes",
+        "summary":  "Owner Studio test currently shows no CharacterCreation preview issue. The resolved issue remains tracked because testers may still find edge cases around height, head attachment, hair alignment, rotation, and body-type draft switching.",
+        "ownerReport":  [
+                            "Changing character creation values can move or fling the preview character.",
+                            "Anchoring fixes caused floating or ground clipping during height changes.",
+                            "Height should visually grow from the top while feet remain planted.",
+                            "Non-height appearance changes should not reload or disturb the preview position.",
+                            "2026-06-28 follow-up: rotating the preview can still fling the character; after one fling, changing hair or any appearance value keeps moving it.",
+                            "2026-06-28 follow-up: preview no longer flings, but height changes stretch body parts without making the character grow upward.",
+                            "2026-06-29 follow-up: whole-model height scaling shrank the full character instead of affecting only height.",
+                            "2026-06-29 follow-up: head height should not change while dragging height, and saved-character hair could load under the head until rotation refreshed attachment alignment.",
+                            "2026-06-29 owner follow-up: current Studio CharacterCreation test did not show problems, but keep the issue tracked because testers often find edge cases later."
+                        ],
+        "requiredOutcome":  [
+                                "Preview rig keeps a fixed feet-grounded pivot across appearance changes.",
+                                "Height scale grows/shrinks from the ground line upward.",
+                                "Hair, eye, face, color, rotation, and accessory changes do not re-pivot or fling the preview.",
+                                "Height changes must use R15 BodyHeightScale behavior, with non-root parts free during rig rebuild and feet re-grounded afterward.",
+                                "Height adjustment should affect vertical height only, preserving width/depth.",
+                                "Masculine and feminine preview choices should be randomized once and then restored from each body type cache when switching.",
+                                "Head size should stay at the baseline/default size while height changes, without detaching from the torso.",
+                                "Hair/accessories should align to the current head attachment immediately after loading saved-character preview or switching height/body type."
+                            ],
+        "sourceDoc":  "project-docs/KnownIssues.md"
+    },
+    {
+        "id":  "character-creation-dual-hair-color-schema",
+        "date":  "2026-06-30",
+        "priority":  "P0",
+        "status":  "InProgress",
+        "systems":  [
+                        "CharacterCreation",
+                        "CharacterAppearance",
+                        "CharacterProfile",
+                        "MainMenuClientBridge"
+                    ],
+        "title":  "Character creation needs two independent hair slots and color schema review",
+        "summary":  "Dual hair is primaryHairStyle plus optional secondaryHairStyle. secondaryHairStyle defaults to empty, and both slots share one hairColor and one hairDarkness value. Current single hairStyle path needs schema-aware expansion.",
+        "ownerReport":  [
+                            "Character creation needs dual hair selection.",
+                            "Dual hair means two independent hair slots.",
+                            "Hair and eye colors should be reselected/reworked.",
+                            "Head/face/hair preview changes should not visibly shift or reload the character.",
+                            "Both hair slots should share the same hair color and darkness.",
+                            "secondaryHairStyle may be empty and should default to empty."
+                        ],
+        "requiredOutcome":  [
+                                "Creation draft and saved appearance payload support primaryHairStyle plus optional secondaryHairStyle.",
+                                "secondaryHairStyle defaults to empty and can remain empty.",
+                                "Both hair style slots share one hairColor and one hairDarkness value.",
+                                "Legacy single-hair saved payloads remain valid or migrate safely into primaryHairStyle.",
+                                "Server validation and client options use explicit mappings for both hair style slots.",
+                                "Preview and spawn application attach, tint, cleanup, and reapply both hair accessories deterministically, while skipping empty secondaryHairStyle.",
+                                "Eye color options are reviewed with explicit client/server ids."
+                            ],
+        "sourceDoc":  "project-docs/KnownIssues.md"
+    },
+    {
+        "id": "titan-slash-damage-and-hook-registration",
+        "date": "2026-07-31",
+        "priority": "P0",
+        "status": "Resolved",
+        "systems": [
+            "ODMGear",
+            "MindlessTitanSystem"
+        ],
+        "title": "ODMGear Titan slash damage and hook target registration issue",
+        "summary": "Resolved: ODMGear Titan slash hints now reach the registered MindlessTitanSystem API. Player/dummy behavior and the unified 360-degree query remain unchanged.",
+        "ownerReport": [
+            "ODMGear slashes deal damage to players and dummies, but deal no damage to Titans.",
+            "Issue was noticed after blade sheath/unsheath and animation changes were introduced.",
+            "Testing with frozen Titans and Studio debug mode confirmed slash hints/contact do not register against Titan nape.",
+            "Hooks thrown at Titans can attach to invisible combat hitboxes (GrabVolume, NapeHitbox) instead of physical mesh body."
+        ],
+        "requiredOutcome": [
+            "ODMGear slashes must deal damage to Titans using the unified chest-centered 360-degree spin query without changing hitbox size.",
+            "Client contact query and server validation must correctly identify Titan nape and eye zones when slash query intersects Titan model.",
+            "Hook raycasting must exclude combat hitboxes and attach cleanly to Titan physical mesh or world geometry."
+        ],
+        "attemptedSolutions": [
+            "1. Line-of-sight raycast filter adjustment: Excluded workspace Runtime and Titan models from raycast filter in TitanCombat. (Reverted per owner directive).",
+            "2. Quick-tap slash intent sequence threshold removal: Modified ODMGearService.handleSlashIntent to accept fast slash sequences. (Reverted per owner directive).",
+            "3. Hook flight position tracking: Updated ODMGearMovementController._updateFeedback to track moving Titan targets during flight. (Reverted per owner directive).",
+            "4. Attribute typo fix: Checked ODMGearConfig vs UpgradeConfig attribute names for hasGear.",
+            "5. Contact target zone mapping: Updated ODMGearInputController getContactTarget to resolve Nape/Eye zones when query hits Titan parts, and excluded GrabVolume/hitboxes from hook raycasts in ODMGearMovementController."
+        ],
+        "resolution": [
+            "Root cause was not blade sheath/unsheath or the replacement slash animations. ODMGearService.handleSlashContactHint still requested the removed runtime feature id TitanSystem after the feature had been renamed and registered as MindlessTitanSystem.",
+            "Updated the Titan slash runtime lookup to MindlessTitanSystem, allowing the existing reportValidatedSlash boundary to run again without changing query size, zone validation, damage authority, or networking.",
+            "Project Lead Hak confirmed Titan slash damage works in Development Play on 2026-08-01. Temporary diagnostic logs and runtime test Titans were removed."
+        ],
+        "resolvedDate": "2026-08-01",
+        "sourceDoc": "project-docs/KnownIssues.md"
+    }
+]

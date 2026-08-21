@@ -1,0 +1,1136 @@
+[
+  {
+    "from": "Firearms",
+    "to": "CoreNetwork",
+    "type": "central-inventory-intent-firearm-state-shot-hint-and-confirmed-effect-routes",
+    "risk": "Critical"
+  },
+  {
+    "from": "Firearms",
+    "to": "InventoryEconomy",
+    "type": "unique-musket-record-spatial-state-sync-atomic-cartridge-reload-case-and-transfer-runtime-api-no-require-cycle",
+    "risk": "Critical"
+  },
+  {
+    "from": "Firearms",
+    "to": "Movement",
+    "type": "source-keyed-aim-speed-and-sprint-constraint",
+    "risk": "High"
+  },
+  {
+    "from": "Firearms",
+    "to": "ODMGear",
+    "type": "mutual-active-combat-set-exclusion-runtime-coupling-no-require-cycle",
+    "risk": "High"
+  },
+  {
+    "from": "Firearms",
+    "to": "FistsCombat",
+    "type": "mutual-ready-state-exclusion-runtime-coupling-no-require-cycle",
+    "risk": "High"
+  },
+  {
+    "from": "Firearms",
+    "to": "GameplayFoundation",
+    "type": "owner-scoped-player-animation-handler-direct-client-require-no-cycle",
+    "risk": "Medium"
+  },
+  {
+    "from": "Firearms",
+    "to": "CharacterLook",
+    "type": "direct-client-require-for-firearm-aim-pitch-layering-one-way-no-cycle",
+    "risk": "Medium"
+  },
+  {
+    "from": "FistsCombat",
+    "to": "GameplayFoundation",
+    "type": "owner-scoped-player-animation-handler-and-sequence-preprocessing-direct-client-require-no-cycle",
+    "risk": "Medium"
+  },
+  {
+    "from": "TalentSystem",
+    "to": "CharacterProfile",
+    "type": "profile-schema-10-expected-active-character-mutations",
+    "risk": "Critical"
+  },
+  {
+    "from": "TalentSystem",
+    "to": "CoreNetwork",
+    "type": "reliable-sanitized-state-opaque-hand-loadout-and-slot-activation-routes",
+    "risk": "Critical"
+  },
+  {
+    "from": "TalentSystem",
+    "to": "PermadeathEvents",
+    "type": "read-only-active-blue-red-award-gate-no-require-cycle",
+    "risk": "Critical"
+  },
+  {
+    "from": "TalentSystem",
+    "to": "ODMGear",
+    "type": "active-effect-delegation-damage-report-reserve-drive-client-read-and-tempered-edges-server-read-no-require-cycle",
+    "risk": "Critical"
+  },
+  {
+    "from": "TalentSystem",
+    "to": "FistsCombat",
+    "type": "validated-player-damage-report-runtime-coupling-no-require-cycle",
+    "risk": "High"
+  },
+  {
+    "from": "TalentSystem",
+    "to": "MindlessTitanSystem",
+    "type": "confirmed-combat-death-subscription-no-require-cycle",
+    "risk": "High"
+  },
+  {
+    "from": "AdminCommand",
+    "to": "TalentSystem",
+    "type": "permission-gated-test-awards-direct-grants-removals-and-exclusive-rage-awaken-grant",
+    "risk": "High"
+  },
+  {
+    "from": "CharacterLook",
+    "to": "CoreNetwork",
+    "type": "bounded-unreliable-presentation-sample-and-server-validated-observer-relay",
+    "risk": "Medium"
+  },
+  {
+    "from": "CharacterLook",
+    "to": "GlobalClientStartup",
+    "type": "global-client-bootstrap",
+    "risk": "Low"
+  },
+  {
+    "from": "CharacterLook",
+    "to": "CharacterAppearance",
+    "type": "applies-presentation-to-the-hydrated-character-rig",
+    "risk": "Low"
+  },
+  {
+    "from": "MindlessTitanSystem",
+    "to": "CoreRuntime",
+    "type": "pure-hunger-logical-record-orchestration-budgeted-cognition-and-single-visible-server-rig-lifecycle",
+    "risk": "High"
+  },
+  {
+    "from": "MindlessTitanSystem",
+    "to": "CoreNetwork",
+    "type": "debug-free-batched-snapshots-and-action-events-plus-bounded-contact-hints",
+    "risk": "Critical"
+  },
+  {
+    "from": "MindlessTitanSystem",
+    "to": "ODMGear",
+    "type": "validated-slash-feedback-logical-root-hook-endpoint-and-server-observed-replicated-odm-intent-no-require-cycle",
+    "risk": "High"
+  },
+  {
+    "from": "MindlessTitanSystem",
+    "to": "AdminCommand",
+    "type": "lore-team-spawn-freeze-remove-stats-and-0-100-difficulty-control-through-existing-admincommand-public-api",
+    "risk": "High"
+  },
+  {
+    "from": "MindlessTitanSystem",
+    "to": "Combat",
+    "type": "server-confirmed-zone-injury-bite-and-death-boundary-no-require-cycle",
+    "risk": "Critical"
+  },
+  {
+    "from": "MindlessTitanSystem",
+    "to": "GameplayFoundation",
+    "type": "character-state-and-restraint-boundary",
+    "risk": "High"
+  },
+  {
+    "from": "MindlessTitanSystem",
+    "to": "PermadeathEvents",
+    "type": "death-routing-only-no-direct-pd-mutation",
+    "risk": "Critical"
+  },
+  {
+    "from": "FistsCombat",
+    "to": "CoreNetwork",
+    "type": "uses-server-authoritative-combat-routes",
+    "risk": "Critical"
+  },
+  {
+    "from": "FistsCombat",
+    "to": "ODMGear",
+    "type": "mutual-runtime-exclusion-not-require-cycle",
+    "risk": "High"
+  },
+  {
+    "from": "FistsCombat",
+    "to": "CoreRuntime",
+    "type": "development-place-feature-gated",
+    "risk": "High"
+  },
+  {
+    "from": "CoreRuntime",
+    "to": "GameConfig",
+    "type": "reads-place-feature-config",
+    "risk": "Critical"
+  },
+  {
+    "from": "CoreNetwork",
+    "to": "CoreRuntime",
+    "type": "registers-through",
+    "risk": "Critical"
+  },
+  {
+    "from": "CorePersistence",
+    "to": "GameConfig",
+    "type": "reads-persistence-config",
+    "risk": "Critical"
+  },
+  {
+    "from": "CorePersistence",
+    "to": "CoreRuntime",
+    "type": "startup-foundation",
+    "risk": "High"
+  },
+  {
+    "from": "CoreLogging",
+    "to": "CoreRuntime",
+    "type": "startup-foundation",
+    "risk": "Medium"
+  },
+  {
+    "from": "CoreSecurity",
+    "to": "CoreLogging",
+    "type": "reports-through",
+    "risk": "High"
+  },
+  {
+    "from": "PlayerData",
+    "to": "CorePersistence",
+    "type": "persists-through",
+    "risk": "Critical"
+  },
+  {
+    "from": "CharacterProfile",
+    "to": "PlayerData",
+    "type": "owns-character-records-in",
+    "risk": "Critical"
+  },
+  {
+    "from": "CharacterProfile",
+    "to": "CorePersistence",
+    "type": "writes-through",
+    "risk": "Critical"
+  },
+  {
+    "from": "CharacterLifecycle",
+    "to": "CharacterProfile",
+    "type": "mutates-state-in",
+    "risk": "Critical"
+  },
+  {
+    "from": "CharacterLifecycle",
+    "to": "PlaceRegistry",
+    "type": "stores-route-continuity",
+    "risk": "Critical"
+  },
+  {
+    "from": "CharacterCreation",
+    "to": "CharacterProfile",
+    "type": "creates-through",
+    "risk": "Critical"
+  },
+  {
+    "from": "CharacterCreation",
+    "to": "CoreNetwork",
+    "type": "receives-intents-through",
+    "risk": "High"
+  },
+  {
+    "from": "CharacterCreation",
+    "to": "GameConfig",
+    "type": "validates-with-config",
+    "risk": "High"
+  },
+  {
+    "from": "CharacterAppearance",
+    "to": "CharacterProfile",
+    "type": "reads-saved-appearance",
+    "risk": "High"
+  },
+  {
+    "from": "CharacterAppearance",
+    "to": "CharacterCreation",
+    "type": "revalidates-created-draft",
+    "risk": "High"
+  },
+  {
+    "from": "CharacterAppearance",
+    "to": "CharacterLifecycle",
+    "type": "applies-to-spawned-state",
+    "risk": "High"
+  },
+  {
+    "from": "GlobalClientStartup",
+    "to": "CoreRuntime",
+    "type": "client-bootstrap-gate",
+    "risk": "Medium"
+  },
+  {
+    "from": "MainMenu",
+    "to": "CharacterProfile",
+    "type": "reads-character-state",
+    "risk": "High"
+  },
+  {
+    "from": "MainMenu",
+    "to": "CharacterLifecycle",
+    "type": "branches-on-lifecycle",
+    "risk": "Critical"
+  },
+  {
+    "from": "MainMenu",
+    "to": "PlaceSelection",
+    "type": "presents-after-character-ready",
+    "risk": "Medium"
+  },
+  {
+    "from": "MainMenuClientBridge",
+    "to": "CoreNetwork",
+    "type": "network-bridge",
+    "risk": "High"
+  },
+  {
+    "from": "MainMenuClientBridge",
+    "to": "MainMenu",
+    "type": "requests-sanitized-menu-state",
+    "risk": "High"
+  },
+  {
+    "from": "MainMenuClientBridge",
+    "to": "CharacterCreation",
+    "type": "submits-create-intent",
+    "risk": "Critical"
+  },
+  {
+    "from": "MainMenuClientBridge",
+    "to": "PlaceSelection",
+    "type": "presents-map-selection",
+    "risk": "Medium"
+  },
+  {
+    "from": "MainMenuClientBridge",
+    "to": "ServerJoining",
+    "type": "submits-join-intent",
+    "risk": "High"
+  },
+  {
+    "from": "NotificationFeed",
+    "to": "CoreNetwork",
+    "type": "presents-server-results",
+    "risk": "Medium"
+  },
+  {
+    "from": "NotificationFeed",
+    "to": "GlobalClientStartup",
+    "type": "client-presentation-surface",
+    "risk": "Low"
+  },
+  {
+    "from": "PlaceRegistry",
+    "to": "GameConfig",
+    "type": "normalizes-directory-config",
+    "risk": "High"
+  },
+  {
+    "from": "PlaceAccess",
+    "to": "PlaceRegistry",
+    "type": "evaluates-place-metadata",
+    "risk": "High"
+  },
+  {
+    "from": "PlaceAccess",
+    "to": "AdminPermissions",
+    "type": "checks-bypass-permission",
+    "risk": "High"
+  },
+  {
+    "from": "PlaceAccess",
+    "to": "GameConfig",
+    "type": "reads-inactive-bypass-rules",
+    "risk": "High"
+  },
+  {
+    "from": "PlaceSelection",
+    "to": "PlaceRegistry",
+    "type": "reads-destination-list",
+    "risk": "High"
+  },
+  {
+    "from": "PlaceSelection",
+    "to": "PlaceAccess",
+    "type": "filters-selectable-places",
+    "risk": "High"
+  },
+  {
+    "from": "PlaceSelection",
+    "to": "MainMenuClientBridge",
+    "type": "displayed-through",
+    "risk": "Medium"
+  },
+  {
+    "from": "ServerJoining",
+    "to": "CoreNetwork",
+    "type": "receives-join-intents",
+    "risk": "High"
+  },
+  {
+    "from": "ServerJoining",
+    "to": "PlaceSelection",
+    "type": "uses-selected-place",
+    "risk": "High"
+  },
+  {
+    "from": "ServerJoining",
+    "to": "PlaceRouting",
+    "type": "delegates-teleport",
+    "risk": "Critical"
+  },
+  {
+    "from": "PlaceRouting",
+    "to": "CharacterLifecycle",
+    "type": "reads-and-checkpoints",
+    "risk": "Critical"
+  },
+  {
+    "from": "PlaceRouting",
+    "to": "PlaceRegistry",
+    "type": "validates-destination",
+    "risk": "Critical"
+  },
+  {
+    "from": "PlaceRouting",
+    "to": "PlaceAccess",
+    "type": "enforces-access-before-route",
+    "risk": "Critical"
+  },
+  {
+    "from": "VoidWipe",
+    "to": "CharacterLifecycle",
+    "type": "mutates-terminal-review-state",
+    "risk": "Critical"
+  },
+  {
+    "from": "VoidWipe",
+    "to": "PlaceRouting",
+    "type": "requires-wipe-place-routing",
+    "risk": "Critical"
+  },
+  {
+    "from": "PermadeathEvents",
+    "to": "AdminPermissions",
+    "type": "requires-pd-permission",
+    "risk": "Critical"
+  },
+  {
+    "from": "PermadeathEvents",
+    "to": "CharacterLifecycle",
+    "type": "creates-wiped-pending-state",
+    "risk": "Critical"
+  },
+  {
+    "from": "PermadeathEvents",
+    "to": "VoidWipe",
+    "type": "feeds-review-flow",
+    "risk": "Critical"
+  },
+  {
+    "from": "PermadeathEvents",
+    "to": "NotificationFeed",
+    "type": "presents-event-feedback",
+    "risk": "Medium"
+  },
+  {
+    "from": "AdminPermissions",
+    "to": "PlayerData",
+    "type": "may-read-player-context",
+    "risk": "High"
+  },
+  {
+    "from": "AdminPermissions",
+    "to": "CoreSecurity",
+    "type": "security-boundary",
+    "risk": "Critical"
+  },
+  {
+    "from": "AdminPermissions",
+    "to": "NotificationFeed",
+    "type": "presents-command-feedback",
+    "risk": "Medium"
+  },
+  {
+    "from": "AdminPermissions",
+    "to": "GameConfig",
+    "type": "reads-role-command-config",
+    "risk": "High"
+  },
+  {
+    "from": "DevProfileTools",
+    "to": "PlayerData",
+    "type": "debug-mutates-profile",
+    "risk": "Critical"
+  },
+  {
+    "from": "DevProfileTools",
+    "to": "CharacterProfile",
+    "type": "debug-reset-snapshot",
+    "risk": "Critical"
+  },
+  {
+    "from": "DevProfileTools",
+    "to": "AdminPermissions",
+    "type": "requires-dev-permission",
+    "risk": "Critical"
+  },
+  {
+    "from": "DevProfileTools",
+    "to": "CoreRuntime",
+    "type": "development-place-gated",
+    "risk": "High"
+  },
+  {
+    "from": "BranchSystem",
+    "to": "CharacterLifecycle",
+    "type": "persists-character-organization",
+    "risk": "High"
+  },
+  {
+    "from": "BranchSystem",
+    "to": "AdminPermissions",
+    "type": "requires-branch-authority",
+    "risk": "High"
+  },
+  {
+    "from": "BranchSystem",
+    "to": "CorePersistence",
+    "type": "stores-canonical-global-documents",
+    "risk": "Critical"
+  },
+  {
+    "from": "BranchSystem",
+    "to": "CoreNetwork",
+    "type": "validates-branch-requests",
+    "risk": "High"
+  },
+  {
+    "from": "BranchSystem",
+    "to": "CharacterProfile",
+    "type": "repairs-membership-projection",
+    "risk": "Critical"
+  },
+  {
+    "from": "BranchSystem",
+    "to": "GameConfig",
+    "type": "reads-fixed-branches-and-role-seeds",
+    "risk": "High"
+  },
+  {
+    "from": "BranchSystem",
+    "to": "NotificationFeed",
+    "type": "presents-open-state-feedback",
+    "risk": "Low"
+  },
+  {
+    "from": "AdminPermissions",
+    "to": "BranchSystem",
+    "type": "provides-global-branch-overrides",
+    "risk": "Critical"
+  },
+  {
+    "from": "InventoryEconomy",
+    "to": "PlayerData",
+    "type": "persists-owned-state",
+    "risk": "Critical"
+  },
+  {
+    "from": "InventoryEconomy",
+    "to": "CharacterLifecycle",
+    "type": "binds-to-active-character",
+    "risk": "Critical"
+  },
+  {
+    "from": "InventoryEconomy",
+    "to": "CharacterProfile",
+    "type": "owns-versioned-character-inventory",
+    "risk": "Critical"
+  },
+  {
+    "from": "InventoryEconomy",
+    "to": "CorePersistence",
+    "type": "profile-and-place-document-persistence",
+    "risk": "Critical"
+  },
+  {
+    "from": "InventoryEconomy",
+    "to": "CoreNetwork",
+    "type": "registered-revisioned-spatial-actions-snapshots-and-central-world-item-intents",
+    "risk": "Critical"
+  },
+  {
+    "from": "InventoryEconomy",
+    "to": "GameConfig",
+    "type": "reads-feature-and-document-store-config",
+    "risk": "High"
+  },
+  {
+    "from": "InventoryEconomy",
+    "to": "GlobalClientStartup",
+    "type": "desktop-inventory-prompt-world-item-and-tab-controller-registration",
+    "risk": "Medium"
+  },
+  {
+    "from": "AdminCommand",
+    "to": "InventoryEconomy",
+    "type": "development-command-and-admintab-gear-gas-blade-and-tiered-backpack-case-logistics-public-api-no-require-cycle",
+    "risk": "Critical"
+  },
+  {
+    "from": "AdminCommand",
+    "to": "ODMGear",
+    "type": "development-persistent-finite-gear-case-spawn-runtime-public-api-not-require-cycle",
+    "risk": "High"
+  },
+  {
+    "from": "CraftingFarming",
+    "to": "InventoryEconomy",
+    "type": "produces-and-consumes-resources",
+    "risk": "High"
+  },
+  {
+    "from": "BuildPersistence",
+    "to": "InventoryEconomy",
+    "type": "consumes-build-materials",
+    "risk": "High"
+  },
+  {
+    "from": "BuildPersistence",
+    "to": "CraftingFarming",
+    "type": "uses-produced-resources",
+    "risk": "High"
+  },
+  {
+    "from": "BuildPersistence",
+    "to": "PermadeathEvents",
+    "type": "canon-event-builds",
+    "risk": "Critical"
+  },
+  {
+    "from": "BuildPersistence",
+    "to": "PlaceRegistry",
+    "type": "place-scoped-persistence",
+    "risk": "High"
+  },
+  {
+    "from": "Combat",
+    "to": "CharacterLifecycle",
+    "type": "can-change-life-state",
+    "risk": "Critical"
+  },
+  {
+    "from": "Combat",
+    "to": "PermadeathEvents",
+    "type": "canon-only-under-pd",
+    "risk": "Critical"
+  },
+  {
+    "from": "Combat",
+    "to": "AntiCheatModeration",
+    "type": "needs-validation",
+    "risk": "Critical"
+  },
+  {
+    "from": "ODMGear",
+    "to": "Combat",
+    "type": "combat-traversal",
+    "risk": "High"
+  },
+  {
+    "from": "ODMGear",
+    "to": "InventoryEconomy",
+    "type": "consumes-persistent-gas-and-delegates-persistent-gear-case-spawn-through-runtime-public-api-not-require-cycle",
+    "risk": "Critical"
+  },
+  {
+    "from": "ODMGear",
+    "to": "AntiCheatModeration",
+    "type": "movement-validation",
+    "risk": "Critical"
+  },
+  {
+    "from": "AntiCheatModeration",
+    "to": "CoreSecurity",
+    "type": "builds-on-security-helper",
+    "risk": "Critical"
+  },
+  {
+    "from": "AntiCheatModeration",
+    "to": "AdminPermissions",
+    "type": "staff-enforcement",
+    "risk": "Critical"
+  },
+  {
+    "from": "AntiCheatModeration",
+    "to": "Combat",
+    "type": "validates-sensitive-actions",
+    "risk": "Critical"
+  },
+  {
+    "from": "DiscordBotIntegration",
+    "to": "AdminPermissions",
+    "type": "external-authority-bridge",
+    "risk": "Critical"
+  },
+  {
+    "from": "DiscordBotIntegration",
+    "to": "VoidWipe",
+    "type": "supports-wipe-workflows",
+    "risk": "Critical"
+  },
+  {
+    "from": "DiscordBotIntegration",
+    "to": "BranchSystem",
+    "type": "syncs-branch-actions",
+    "risk": "High"
+  },
+  {
+    "from": "DiscordBotIntegration",
+    "to": "AntiCheatModeration",
+    "type": "syncs-moderation-actions",
+    "risk": "Critical"
+  },
+  {
+    "from": "ServerDirectory",
+    "to": "PlaceRegistry",
+    "type": "indexes-place-server-rows",
+    "risk": "High"
+  },
+  {
+    "from": "ServerDirectory",
+    "to": "PlaceRouting",
+    "type": "provides-join-targets",
+    "risk": "Critical"
+  },
+  {
+    "from": "ServerDirectory",
+    "to": "ServerJoining",
+    "type": "backs-server-selection-ui",
+    "risk": "Critical"
+  },
+  {
+    "from": "ServerDirectory",
+    "to": "AdminPermissions",
+    "type": "gates-staff-server-actions",
+    "risk": "Critical"
+  },
+  {
+    "from": "ServerDirectory",
+    "to": "PermadeathEvents",
+    "type": "publishes-server-scoped-pd-state",
+    "risk": "Critical"
+  },
+  {
+    "from": "ServerDirectory",
+    "to": "CoreLogging",
+    "type": "logs-server-lifecycle",
+    "risk": "High"
+  },
+  {
+    "from": "WebhookAuditLogging",
+    "to": "CoreLogging",
+    "type": "delivers-structured-audit-events",
+    "risk": "Critical"
+  },
+  {
+    "from": "WebhookAuditLogging",
+    "to": "AdminPermissions",
+    "type": "logs-command-and-staff-actions",
+    "risk": "Critical"
+  },
+  {
+    "from": "WebhookAuditLogging",
+    "to": "CharacterCreation",
+    "type": "logs-character-creation",
+    "risk": "High"
+  },
+  {
+    "from": "WebhookAuditLogging",
+    "to": "PermadeathEvents",
+    "type": "logs-pd-lifecycle-and-outcomes",
+    "risk": "Critical"
+  },
+  {
+    "from": "WebhookAuditLogging",
+    "to": "ServerJoining",
+    "type": "logs-server-create-join-close",
+    "risk": "High"
+  },
+  {
+    "from": "WebhookAuditLogging",
+    "to": "Combat",
+    "type": "logs-damage-and-death-events",
+    "risk": "Critical"
+  },
+  {
+    "from": "WebhookAuditLogging",
+    "to": "CoreSecurity",
+    "type": "logs-security-events",
+    "risk": "Critical"
+  },
+  {
+    "from": "CharacterProfile",
+    "to": "CharacterAppearance",
+    "type": "stores-versioned-appearance-schema",
+    "risk": "Critical"
+  },
+  {
+    "from": "MainMenuClientBridge",
+    "to": "CharacterAppearance",
+    "type": "previews-managed-appearance",
+    "risk": "High"
+  },
+  {
+    "from": "CharacterCreation",
+    "to": "CharacterAppearance",
+    "type": "shares-dual-hair-schema",
+    "risk": "Critical"
+  },
+  {
+    "from": "GameplayFoundation",
+    "to": "CoreRuntime",
+    "type": "runtime-conventions",
+    "risk": "High"
+  },
+  {
+    "from": "GameplayFoundation",
+    "to": "GlobalClientStartup",
+    "type": "client-core-helpers",
+    "risk": "Medium"
+  },
+  {
+    "from": "GameplayFoundation",
+    "to": "CoreNetwork",
+    "type": "requires-feature-routes-for-authority",
+    "risk": "High"
+  },
+  {
+    "from": "ODMGear",
+    "to": "GameplayFoundation",
+    "type": "uses-gameplay-foundation",
+    "risk": "High"
+  },
+  {
+    "from": "ODMGear",
+    "to": "CoreRuntime",
+    "type": "development-place-feature-gated",
+    "risk": "High"
+  },
+  {
+    "from": "ODMGear",
+    "to": "GlobalClientStartup",
+    "type": "development-client-registration",
+    "risk": "Medium"
+  },
+  {
+    "from": "Movement",
+    "to": "GameplayFoundation",
+    "type": "uses-gameplay-foundation",
+    "risk": "Medium"
+  },
+  {
+    "from": "Movement",
+    "to": "CoreRuntime",
+    "type": "client-feature-registration",
+    "risk": "Medium"
+  },
+  {
+    "from": "Movement",
+    "to": "TalentSystem",
+    "type": "sanitized-client-public-api-read-for-enabled-kinetic-conditioning-no-require-cycle",
+    "risk": "High"
+  },
+  {
+    "from": "ODMGear",
+    "to": "Movement",
+    "type": "optional-control-handoff",
+    "risk": "High"
+  },
+  {
+    "from": "ODMGear",
+    "to": "CoreNetwork",
+    "type": "traversal-resource-and-combat-intents-through",
+    "risk": "Critical"
+  },
+  {
+    "from": "CustomChat",
+    "to": "CoreLogging",
+    "type": "reports-runtime-diagnostics",
+    "risk": "Medium"
+  },
+  {
+    "from": "CustomChat",
+    "to": "CoreNetwork",
+    "type": "uses-central-routes",
+    "risk": "High"
+  },
+  {
+    "from": "CustomChat",
+    "to": "CorePersistence",
+    "type": "stores-filter-bypass-flag",
+    "risk": "Critical"
+  },
+  {
+    "from": "CustomChat",
+    "to": "AdminPermissions",
+    "type": "requires-admin-grant-permission",
+    "risk": "High"
+  },
+  {
+    "from": "CustomChat",
+    "to": "AdminCommand",
+    "type": "exposes-unfilteredchat-command",
+    "risk": "High"
+  },
+  {
+    "from": "CustomChat",
+    "to": "GameConfig",
+    "type": "reads-server-chat-config",
+    "risk": "High"
+  },
+  {
+    "from": "CustomChat",
+    "to": "GlobalClientStartup",
+    "type": "client-bootstrap-presentation",
+    "risk": "Medium"
+  },
+  {
+    "from": "AdminCommand",
+    "to": "AdminPermissions",
+    "type": "resolves-command-permissions-through",
+    "risk": "Critical"
+  },
+  {
+    "from": "AdminCommand",
+    "to": "CoreNetwork",
+    "type": "executes-commands-through",
+    "risk": "High"
+  },
+  {
+    "from": "AdminCommand",
+    "to": "GameConfig",
+    "type": "reads-command-config",
+    "risk": "High"
+  },
+  {
+    "from": "AdminCommand",
+    "to": "NotificationFeed",
+    "type": "presents-command-feedback",
+    "risk": "Medium"
+  },
+  {
+    "from": "AdminCommand",
+    "to": "CharacterAppearance",
+    "type": "refresh-reloads-character-and-relies-on-normal-characteradded-reapplication-no-require-cycle",
+    "risk": "High"
+  },
+  {
+    "from": "AdminMusic",
+    "to": "AdminCommand",
+    "type": "isolated-package-contained-subfeature-no-require-cycle",
+    "risk": "Medium"
+  },
+  {
+    "from": "AdminMusic",
+    "to": "AdminPermissions",
+    "type": "rechecks-admin-tabs-open-for-every-request",
+    "risk": "Critical"
+  },
+  {
+    "from": "AdminMusic",
+    "to": "CoreNetwork",
+    "type": "uses-server-authoritative-playback-volume-and-seek-routes",
+    "risk": "High"
+  },
+  {
+    "from": "AdminMusic",
+    "to": "GameConfig",
+    "type": "reads-server-only-song-catalog",
+    "risk": "High"
+  },
+  {
+    "from": "XPProgression",
+    "to": "CharacterLifecycle",
+    "type": "awards-xp-to-active-character",
+    "risk": "Critical"
+  },
+  {
+    "from": "XPProgression",
+    "to": "PermadeathEvents",
+    "type": "grants-xp-from-event-outcomes",
+    "risk": "High"
+  },
+  {
+    "from": "XPProgression",
+    "to": "BranchSystem",
+    "type": "bound-to-branch-eligibility",
+    "risk": "High"
+  },
+  {
+    "from": "WipePlace",
+    "to": "VoidWipe",
+    "type": "hosts-pending-wipe-review",
+    "risk": "Critical"
+  },
+  {
+    "from": "WipePlace",
+    "to": "PlaceRouting",
+    "type": "routes-wiped-pending-characters",
+    "risk": "Critical"
+  },
+  {
+    "from": "ActorSupport",
+    "to": "PermadeathEvents",
+    "type": "fills-special-event-roles",
+    "risk": "High"
+  },
+  {
+    "from": "ActorSupport",
+    "to": "XPProgression",
+    "type": "receives-actor-xp-rewards",
+    "risk": "High"
+  },
+  {
+    "from": "AdminTab",
+    "to": "AdminPermissions",
+    "type": "gates-all-tab-actions",
+    "risk": "Critical"
+  },
+  {
+    "from": "AdminTab",
+    "to": "AdminCommand",
+    "type": "extends-command-surface",
+    "risk": "High"
+  },
+  {
+    "from": "AdminTab",
+    "to": "NotificationFeed",
+    "type": "presents-queue-updates",
+    "risk": "Medium"
+  },
+  {
+    "from": "TalentSystem",
+    "to": "XPProgression",
+    "type": "triggered-by-xp-threshold",
+    "risk": "Critical"
+  },
+  {
+    "from": "TalentSystem",
+    "to": "BranchSystem",
+    "type": "filtered-by-branch-eligibility",
+    "risk": "High"
+  },
+  {
+    "from": "TalentSystem",
+    "to": "CharacterLifecycle",
+    "type": "persists-perk-ownership",
+    "risk": "Critical"
+  },
+  {
+    "from": "AdminCommand",
+    "to": "PermadeathEvents",
+    "type": "controls-pd-through-public-api",
+    "risk": "Critical"
+  },
+  {
+    "from": "AdminTab",
+    "to": "CoreNetwork",
+    "type": "submits-tool-environment-slot-management-and-character-tools-intents",
+    "risk": "High"
+  },
+  {
+    "from": "AdminTab",
+    "to": "CharacterProfile",
+    "type": "presents-sanitized-owned-slot-summaries-and-recoverable-archive-outcomes",
+    "risk": "Critical"
+  },
+  {
+    "from": "AdminTab",
+    "to": "CharacterCreation",
+    "type": "opens-existing-authored-experience-for-fresh-additional-slot-drafts",
+    "risk": "Critical"
+  },
+  {
+    "from": "AdminTab",
+    "to": "PlaceRouting",
+    "type": "uses-dedicated-cross-place-additional-slot-teleport-context",
+    "risk": "Critical"
+  },
+  {
+    "from": "AdminCommand",
+    "to": "CharacterProfile",
+    "type": "server-authoritative-sanitized-read-activation-and-recoverable-archive-public-api-no-require-cycle",
+    "risk": "Critical"
+  },
+  {
+    "from": "AdminCommand",
+    "to": "PlaceRegistry",
+    "type": "records-current-place-and-resolves-additional-slot-destination-without-overwriting-safe-checkpoint",
+    "risk": "Critical"
+  },
+  {
+    "from": "AdminCommand",
+    "to": "MainMenuClientBridge",
+    "type": "opens-additional-slot-creation-in-mainmenu-through-runtime-public-api-no-require-cycle",
+    "risk": "High"
+  },
+  {
+    "from": "CharacterCreation",
+    "to": "AdminPermissions",
+    "type": "rechecks-admin-tabs-open-for-additional-slot-submission-one-way-no-require-cycle",
+    "risk": "Critical"
+  },
+  {
+    "from": "MainMenu",
+    "to": "AdminPermissions",
+    "type": "consumes-and-rechecks-server-owned-additional-slot-context-one-way-no-require-cycle",
+    "risk": "Critical"
+  },
+  {
+    "from": "AdminTab",
+    "to": "CharacterAppearance",
+    "type": "persistent-self-active-slot-customization",
+    "risk": "Critical"
+  },
+  {
+    "from": "CharacterAppearance",
+    "to": "CharacterProfile",
+    "type": "atomic-expected-active-character-update-public-api-no-require-cycle",
+    "risk": "Critical"
+  },
+  {
+    "from": "CharacterAppearance",
+    "to": "CharacterCreation",
+    "type": "reuses-catalog-and-core-validation-with-optional-customization-extension-no-require-cycle",
+    "risk": "High"
+  },
+  {
+    "from": "ODMGear",
+    "to": "InventoryEconomy",
+    "type": "runtime-public-api-for-transferable-record-persistence-coins-gas-blade-reserves-and-dedicated-spatial-equipment-projection-no-require-cycle",
+    "risk": "Critical"
+  },
+  {
+    "from": "ODMGear",
+    "to": "CoreNetwork",
+    "type": "registered-upgrade-purchase-result-and-blade-action-state-routes",
+    "risk": "Critical"
+  }
+]
